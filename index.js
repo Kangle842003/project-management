@@ -7,8 +7,10 @@ database.connect()
 const app = express(); 
 
 const routeAdmin = require("./routes/admin/index.route")
-const route = require("./routes/client/index.route") 
+const route = require("./routes/client/index.route"); 
+const systemConfig = require("./config/systemConfig");
 
+app.locals.prefixAdmin = systemConfig.prefixAdmin
 
 const port = process.env.PORT
 
