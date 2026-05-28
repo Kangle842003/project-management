@@ -1,4 +1,28 @@
 extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
 
 block main 
-  h1 Trang san pham
+  .container.py-4
+    .text-center.mb-4 
+      +box-head("Trang san pham")
+    .row
+      .col-md-4
+        .card.h-100.shadow-sm
+          img.card-img-top(
+            src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800"
+            alt="iPhone"
+          )
+
+          .card-body
+            h5.card-title iPhone 15 Pro Max
+
+            p.card-text
+              | Điện thoại cao cấp với chip A17 Pro,
+              | camera chất lượng cao và hiệu năng mạnh mẽ.
+
+            p.fw-bold.text-danger.fs-5
+              | 29.990.000đ
+
+          .card-footer.bg-white.border-0
+            a.btn.btn-primary.w-100(href="#")
+              | Xem chi tiết
