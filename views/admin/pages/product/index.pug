@@ -13,26 +13,25 @@ block main
           th Hành động
 
       tbody
-        tr
-          td 1
-
-          td
-            img(
-              src="https://i.dummyjson.com/data/products/1/thumbnail.jpg"
-              width="80"
-              height="80"
-            )
-
-          td iPhone 15 Pro Max
-
-          td.text-danger.fw-bold 29.990.000đ
-
-          td
-            span.badge.bg-success Hoạt động
-
-          td
-            a.btn.btn-sm.btn-info.me-1(href="#")
-              | Sửa
-
-            a.btn.btn-sm.btn-danger(href="#")
-              | Xóa
+        each item,index in data
+          tr
+            td #{index +1}
+            td
+              img(
+                src=item.thumbnail
+                alt = item.title
+                width="80"
+                height="80"
+              )
+            td #{item.title}
+            td.text-danger.fw-bold #{item.price} $
+            td
+              if(item.status == "active")
+                span.badge.bg-success Hoạt động
+              else 
+                span.badge.bg-danger Dung Hoạt động
+            td
+              a.btn.btn-sm.btn-info.me-1(href="#")
+                | Sửa
+              a.btn.btn-sm.btn-danger(href="#")
+                | Xóa
