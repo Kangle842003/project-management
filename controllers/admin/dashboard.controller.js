@@ -1,4 +1,6 @@
 
 module.exports.dashboard = (req,res)=>{
-    res.send("Trang tong quan")
+    res.render("admin/pages/dashboard/index.pug",{
+        pagetitle: "Trang tong quan"
+    })
 }
