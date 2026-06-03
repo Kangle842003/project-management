@@ -4,11 +4,23 @@ block main
   .card.mb-3 
     .card-header Bo loc va tim kiem 
     .card-body 
-      each item in filterStatus
-        button(
-          class = `btn btn-sm ml-1 btn-outline-success ${item.class}`
-          button-status = item.status
-        ) #{item.name}
+      .row 
+        .col-8       
+          each item in filterStatus
+            button(
+              class = `btn btn-sm ml-1 btn-outline-success ${item.class}`
+              button-status = item.status
+            ) #{item.name}
+        .col-4
+          form(id="form-search")
+            input.form-control(
+              type="text"
+              name="keyword"
+              placeholder="Nhập từ khóa..."
+            )
+            button.btn.btn-primary(
+              type="submit"
+            ) Tìm kiếm
         
         
   .card.mb-3 
