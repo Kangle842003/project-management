@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug
 include ../../mixins/filter-status.pug
+include ../../mixins/search.pug
 block main
   h1 Trang danh sach san pham
   .card.mb-3 
@@ -10,16 +11,7 @@ block main
           +filter-status(filterStatus)      
     
         .col-4
-          form(id="form-search")
-            input.form-control(
-              type="text"
-              name="keyword"
-              placeholder="Nhập từ khóa..."
-              value = keyword
-            )
-            button.btn.btn-primary(
-              type="submit"
-            ) Tìm kiếm
+          +search(keyword)
         
         
   .card.mb-3 

@@ -1,0 +1,11 @@
+mixin search (keyword)
+  form(id="form-search")
+    input.form-control(
+      type="text"
+      name="keyword"
+      placeholder="Nhập từ khóa..."
+      value = keyword
+    )
+    button.btn.btn-primary(
+      type="submit"
+    ) Tìm kiếm
