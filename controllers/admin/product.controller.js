@@ -38,6 +38,13 @@ module.exports.index = async (req,res) =>{
     }
     // console.log(find.status)
     
+    let keyword = ""
+    // console.log(req.query.keyword)
+    if(req.query.keyword){
+        keyword = req.query.keyword
+        const regex = new RegExp(keyword,"i")
+        find.title = regex
+    }
 
     const data = await Product.find(find)
     // console.log(data)
@@ -45,6 +52,7 @@ module.exports.index = async (req,res) =>{
     res.render("admin/pages/product/index.pug",{
         data: data,
         filterStatus : filterStatus,
+        keyword : keyword,
         pagetitle : "Trang san pham"
     })
 }
