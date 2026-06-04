@@ -1,16 +1,14 @@
 extends ../../layouts/default.pug
+include ../../mixins/filter-status.pug
 block main
   h1 Trang danh sach san pham
   .card.mb-3 
     .card-header Bo loc va tim kiem 
     .card-body 
       .row 
-        .col-8       
-          each item in filterStatus
-            button(
-              class = `btn btn-sm ml-1 btn-outline-success ${item.class}`
-              button-status = item.status
-            ) #{item.name}
+        .col-8 
+          +filter-status(filterStatus)      
+    
         .col-4
           form(id="form-search")
             input.form-control(
