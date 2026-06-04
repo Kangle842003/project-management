@@ -35,3 +35,18 @@ if(formSearch){
     })
 }
 // End tim kiem san pham
+
+//Pagination
+const buttonPage= document.querySelectorAll("[button-page]")
+if(buttonPage.length > 0){
+    let url = new URL(window.location.href)
+    buttonPage.forEach(button=>{
+        button.addEventListener("click",()=>{
+            const page = button.getAttribute("button-page")
+            url.searchParams.set("page",page)
+            window.location.href = url.href
+        })
+       
+    })
+}
+//End Pagination

@@ -18,14 +18,33 @@ module.exports.index = async (req,res) =>{
     if(search.keyword){
         find.title = search.regex
     }
+// pagination   
 
-    const data = await Product.find(find)
+    let objectPagination = {
+        limitItem : 4,
+        currentPage : 1
+    }
+
+    if(req.query.page){
+        const page = parseInt(req.query.page)
+        objectPagination.currentPage = page
+        objectPagination.skipItem = (objectPagination.currentPage-1)*objectPagination.limitItem
+    }
+
+    const count = await Product.countDocuments({deleted:false})
+    const pages = Math.ceil(count/objectPagination.limitItem)
+    
+// End Pagination
+
+    const data = await Product.find(find).limit(objectPagination.limitItem).skip(objectPagination.skipItem)
     
 
     res.render("admin/pages/product/index.pug",{
         data: data,
         filterStatus : filterStatus,
+        objectPagination: objectPagination,
         keyword : search.keyword,
+        pages:pages,
         pagetitle : "Trang san pham"
     })
 }
