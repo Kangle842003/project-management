@@ -1,0 +1,21 @@
+mixin pagination (objectPagination, pages)
+   nav   
+    ul(class ="pagination")
+      if (objectPagination.currentPage > 1)
+        li(class ="page-item")
+          button(
+            class="page-link"
+            button-page = objectPagination.currentPage - 1
+            ) Back
+      - for (let i = 1 ; i<=pages ; i++)
+          li(class=`page-item ${objectPagination.currentPage == i ? "active" : ""}`)
+            button(
+              class="page-link"
+            button-page = i
+              ) #{i}
+      if (objectPagination.currentPage < pages) 
+        li(class ="page-item")
+          button(
+            class="page-link"
+          button-page = objectPagination.currentPage + 1
+            ) Next
