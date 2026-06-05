@@ -43,12 +43,29 @@ block main
                 td.text-danger.fw-bold #{item.price} $
                 td
                   if(item.status == "active")
-                    button.badge.bg-success Hoạt động
+                    button(
+                      class="badge bg-success"
+                      data-id = item._id
+                      button-change-status = item.status
+                      ) Hoạt động
                   else 
-                    button.badge.bg-danger Dung Hoạt động
+                    button(
+                      class="badge bg-danger"
+                      data-id = item._id
+                      button-change-status = item.status
+                      ) Dừng hoạt động
                 td
                   a.btn.btn-sm.btn-info.me-1(href="#")
                     | Sửa
                   a.btn.btn-sm.btn-danger(href="#")
                     | Xóa
   +pagination(objectPagination, pages)
+  
+  //form-change-status
+  form(
+    action=""
+    method="POST"
+    id="form-change-status"
+    data-path = `${prefixAdmin}/products/change-status`) 
+
+  script(src="/admin/js/product.js") 
