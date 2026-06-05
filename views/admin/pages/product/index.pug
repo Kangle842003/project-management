@@ -2,6 +2,7 @@ extends ../../layouts/default.pug
 include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
 block main
   h1 Trang danh sach san pham
   .card.mb-3 
@@ -13,14 +14,20 @@ block main
     
         .col-4
           +search(keyword)
-        
-        
+      
+
   .card.mb-3 
-    .card-header danh sach san pham
+    .card-header DANH SACH SAN PHAM
+      +form-change-multi()
     .card-body 
-      table.table.table-bordered.table-hover.align-middle
+      table(
+        class ="table table-bordered table-hover align-middle"
+        form-multi
+      )
           thead.table-primary
             tr
+              th 
+                input(type="checkbox" check-box-all)
               th STT
               th Hình ảnh
               th Tiêu đề
@@ -30,7 +37,10 @@ block main
 
           tbody
             each item,index in data
+              
               tr
+                td 
+                  input(type ="checkbox" check-box-item value = item.id)
                 td #{index +1}
                 td
                   img(
@@ -60,7 +70,7 @@ block main
                   a.btn.btn-sm.btn-danger(href="#")
                     | Xóa
   +pagination(objectPagination, pages)
-  
+
   //form-change-status
   form(
     action=""

@@ -3,11 +3,13 @@ require("dotenv").config() // Khai bao thu vien dotenv
 
 const database = require("./config/database")
 const methodOverride = require('method-override')
+const bodyParser = require('body-parser')
 
 database.connect()
 
 const app = express(); 
 app.use(methodOverride('_method'))
+app.use(bodyParser.urlencoded())
 
 const routeAdmin = require("./routes/admin/index.route")
 const route = require("./routes/client/index.route"); 

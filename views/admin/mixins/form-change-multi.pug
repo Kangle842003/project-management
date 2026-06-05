@@ -1,0 +1,22 @@
+mixin form-change-multi ()
+  form(
+    id="form-change-multi"
+    action=`${prefixAdmin}/products/change-multi?_method=PATCH`
+    method="POST"
+  )
+    select(
+      name="type"
+      )
+      option(value="" selected disabled) -- Chọn hành động --
+      option( name = "type" value = "active") Hoat dong
+      option( name = "type" value = "inactive") Dung hoat dong
+    input(
+      type="text"
+      name="ids"
+      input-ids
+      class="d-none"
+    )
+    button(
+      class="badge bg-success"
+      type="submit"
+      ) Ap dung

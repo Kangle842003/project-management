@@ -50,3 +50,68 @@ if(buttonPage.length > 0){
     })
 }
 //End Pagination
+
+//change-multi
+    // check-box
+    const formMulti = document.querySelector("[form-multi]")
+    if(formMulti){
+        const checkBoxAll = formMulti.querySelector("[check-box-all]")
+        const checkBoxItem = formMulti.querySelectorAll("[check-box-item]")
+        
+        checkBoxAll.addEventListener("click",()=>{
+            const checkedAll = checkBoxAll.checked
+                if(checkedAll){
+                    checkBoxItem.forEach(input=>{
+                        input.checked = true
+                    })
+                }
+                else{
+                    checkBoxItem.forEach(input=>{
+                        input.checked = false
+                    })
+                }
+                })
+        if(checkBoxItem.length > 0){
+            checkBoxItem.forEach(input=>{
+                input.addEventListener("click",()=>{
+                    const countChecked = document.querySelectorAll("[check-box-item]:checked").length
+                    // console.log(countChecked)
+                    if(countChecked == checkBoxItem.length){
+                        checkBoxAll.checked = true
+                    }
+                    else{
+                        checkBoxAll.checked = false
+                    }
+                })
+            })
+        }
+}
+    // input-list-id
+    const formChangeMulti = document.querySelector("#form-change-multi")
+    if(formChangeMulti){
+        
+        const inputIds = formChangeMulti.querySelector("[input-ids]")
+        formChangeMulti.addEventListener("submit",(e)=>{
+            e.preventDefault()
+
+            const type = formChangeMulti.querySelector("select").value
+            if(type == ""){
+                alert("Vui lòng chọn hành động")
+                return
+            }
+            let ids =[]
+            const countChecked = document.querySelectorAll("[check-box-item]:checked")
+            if(countChecked.length>0){
+                countChecked.forEach(input=>{
+                    ids.push(input.value) 
+                })
+                inputIds.value = ids.join(",")
+                formChangeMulti.submit()
+            }
+            else{
+                alert("Vui long chon 1 san pham")
+            }
+          
+        })
+    }
+// end change-multi
