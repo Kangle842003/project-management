@@ -99,10 +99,17 @@ if(buttonPage.length > 0){
                 alert("Vui lòng chọn hành động")
                 return
             }
+            let isConfirm = false
+            if(type == "deleteAll"){
+                isConfirm = confirm("Ban co chac chan muon xoa nhung san pham da chon")
+                if(!isConfirm){
+                    return
+                }
+            }
             let ids =[]
-            const countChecked = document.querySelectorAll("[check-box-item]:checked")
-            if(countChecked.length>0){
-                countChecked.forEach(input=>{
+            const checkedItems  = document.querySelectorAll("[check-box-item]:checked")
+            if(checkedItems.length>0){
+                checkedItems.forEach(input=>{
                     ids.push(input.value) 
                 })
                 inputIds.value = ids.join(",")
