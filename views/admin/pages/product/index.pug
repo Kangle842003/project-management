@@ -65,10 +65,16 @@ block main
                       button-change-status = item.status
                       ) Dừng hoạt động
                 td
-                  a.btn.btn-sm.btn-info.me-1(href="#")
-                    | Sửa
-                  a.btn.btn-sm.btn-danger(href="#")
-                    | Xóa
+                  button(
+                    class = "btn btn-sm btn-info me-1"
+                    
+                  ) Sửa
+                  button(
+                    class = "btn btn-sm btn-danger"
+                    button-delete-item
+                    data-id = item.id
+                  ) Xóa
+                  
   +pagination(objectPagination, pages)
 
   //form-change-status
@@ -77,5 +83,12 @@ block main
     method="POST"
     id="form-change-status"
     data-path = `${prefixAdmin}/products/change-status`) 
+
+  //form-delete-item
+  form(
+    action="" 
+    method="POST"
+    id="form-delete-item-product"
+    path=`${prefixAdmin}/products/delete`)
 
   script(src="/admin/js/product.js") 

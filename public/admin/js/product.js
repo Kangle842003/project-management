@@ -17,3 +17,23 @@ if(buttonChangeStatus.length > 0){
     
 }
 //End change-status
+
+// Delete 1 item
+const buttonDeleteItem = document.querySelectorAll("[ button-delete-item]")
+if(buttonDeleteItem.length>0){
+    const formDeleteItem = document.querySelector("#form-delete-item-product")
+    buttonDeleteItem.forEach(button=>{
+        button.addEventListener("click",()=>{
+            const isCofirm = confirm("Ban co chac muon xoa san pham nay !")
+            if(isCofirm){
+                const path = formDeleteItem.getAttribute("path")
+                const id = button.getAttribute("data-id")
+                // console.log(id)
+                formDeleteItem.action = `${path}/${id}?_method=DELETE`
+                formDeleteItem.submit()
+            }
+        })
+    })
+}
+
+// End delete 1 item
