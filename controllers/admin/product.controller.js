@@ -108,5 +108,6 @@ module.exports.delete = async (req,res) =>{
         deleted:true,
         deletedAt : new Date()
     })
+    req.flash("success","Da xoa thanh cong san pham !")
     res.redirect(req.get("Referrer") )
 }

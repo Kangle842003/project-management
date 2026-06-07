@@ -22,7 +22,7 @@ block main
 
   .card.mb-3 
     .card-header DANH SACH SAN PHAM
-      +form-change-multi()
+      +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
     .card-body 
       table(
         class ="table table-bordered table-hover align-middle"

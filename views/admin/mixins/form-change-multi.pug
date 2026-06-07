@@ -1,7 +1,7 @@
-mixin form-change-multi ()
+mixin form-change-multi (action)
   form(
     id="form-change-multi"
-    action=`${prefixAdmin}/products/change-multi?_method=PATCH`
+    action = action 
     method="POST"
   )
     select(
