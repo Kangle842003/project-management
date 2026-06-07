@@ -54,14 +54,14 @@ module.exports.changeStatus = async (req,res) =>{
     const status = req.params.status 
     const id = req.params.id
     await Product.updateOne({_id:id},{status:status})
-
+    req.flash('success', 'Thay doi trang thai san pham thanh cong !');
     res.redirect(req.get("Referrer") || "/")
 
 }
 
 //[PATCH] admin/products/change-multi
 module.exports.changeMulti = async (req,res) =>{
-    console.log(req.body)
+    // console.log(req.body)
     const type = req.body.type
     const ids = req.body.ids.split(",")
     switch (type) {

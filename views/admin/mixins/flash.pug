@@ -1,0 +1,9 @@
+mixin success-flash(time)
+  - if (messages.success)
+    div(
+      class="alert alert-success" 
+      role="alert"
+      req-flash 
+      time = time)
+      h3 #{messages.success}
+      span(close-alert) &times;

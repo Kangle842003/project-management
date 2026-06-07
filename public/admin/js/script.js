@@ -138,3 +138,21 @@ if(buttonPage.length > 0){
         })
     }
 // end change-multi
+
+// req-flash thong bao
+    const flash = document.querySelector("[req-flash]")
+    if(flash){
+        const time = parseInt(flash.getAttribute("time"))
+        const buttonClose = flash.querySelector("[close-alert]")
+        if(buttonClose){
+            buttonClose.addEventListener("click", () => {
+                const alert = buttonClose.closest("[req-flash]")
+                alert.classList.add("alert-hidden")
+            })
+        }
+        setTimeout(() => {
+            flash.classList.add("alert-hidden")
+        }, time);
+        
+    }
+// End req-flash thong bao
