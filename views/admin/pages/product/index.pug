@@ -31,6 +31,7 @@ block main
               th STT
               th Hình ảnh
               th Tiêu đề
+              th Vị trí
               th Giá
               th Trạng thái
               th Hành động
@@ -50,6 +51,15 @@ block main
                     height="80"
                   )
                 td #{item.title}
+                td 
+                  input(
+                    name = "position"
+                    type ="number"
+                    value = item.position
+                    min = 1
+                    class="form-control w-25"
+                    required
+                  )
                 td.text-danger.fw-bold #{item.price} $
                 td
                   if(item.status == "active")

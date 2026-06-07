@@ -7,10 +7,11 @@ mixin form-change-multi ()
     select(
       name="type"
       )
-      option(value="" selected disabled) -- Chọn hành động --
-      option( name = "type" value = "active") Hoat dong
-      option( name = "type" value = "inactive") Dung hoat dong
-      option( name = "type" value = "deleteAll") Xoa tat ca
+      option(  value="" selected disabled) -- Chọn hành động --
+      option(  value = "active") Hoat dong
+      option(  value = "inactive") Dung hoat dong
+      option(  value = "deleteAll") Xoa tat ca
+      option(  value = "change-position") Thay doi vi tri
     input(
       type="text"
       name="ids"

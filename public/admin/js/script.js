@@ -88,37 +88,53 @@ if(buttonPage.length > 0){
 }
     // input-list-id
     const formChangeMulti = document.querySelector("#form-change-multi")
-    if(formChangeMulti){
-        
+    if(formChangeMulti){ 
         const inputIds = formChangeMulti.querySelector("[input-ids]")
         formChangeMulti.addEventListener("submit",(e)=>{
             e.preventDefault()
-
             const type = formChangeMulti.querySelector("select").value
-            if(type == ""){
-                alert("Vui lòng chọn hành động")
-                return
-            }
-            let isConfirm = false
-            if(type == "deleteAll"){
-                isConfirm = confirm("Ban co chac chan muon xoa nhung san pham da chon")
-                if(!isConfirm){
+                if(type == ""){
+                    alert("Vui lòng chọn hành động")
                     return
                 }
+                let isConfirm = ""
+                if(type == "deleteAll"){
+                    isConfirm = confirm("Ban co chac chan muon xoa nhung san pham da chon")
+                    if(!isConfirm){
+                        return
+                    }
+                }
+            const checkedItems = document.querySelectorAll("[check-box-item]:checked")
+            if(checkedItems.length === 0){
+                alert("Vui lòng chọn ít nhất 1 sản phẩm")
+                return
             }
             let ids =[]
-            const checkedItems  = document.querySelectorAll("[check-box-item]:checked")
-            if(checkedItems.length>0){
-                checkedItems.forEach(input=>{
-                    ids.push(input.value) 
-                })
-                inputIds.value = ids.join(",")
-                formChangeMulti.submit()
+            if(type == "change-position"){
+                if(checkedItems.length>0){
+                    checkedItems.forEach(input=>{
+                        const position = input.closest("tr").querySelector("input[name='position']").value
+                        if(position == ""){
+                            alert("Vui long nhap vi tri muon thay doi")
+                            return
+                        }
+                        const id = input.value
+                        ids.push(`${id}-${position}`)
+                    })
+                    inputIds.value = ids.join(",")
+                    
+                    formChangeMulti.submit()
+                }
             }
             else{
-                alert("Vui long chon 1 san pham")
+                if(checkedItems.length>0){
+                    checkedItems.forEach(input=>{
+                        ids.push(input.value) 
+                    })
+                    inputIds.value = ids.join(",")
+                    formChangeMulti.submit()
+                 }
             }
-          
         })
     }
 // end change-multi
