@@ -2,6 +2,8 @@ const Product = require("../../models/product.model")
 const filterStatusHelper = require("../../helpers/filterStatus")
 const searchHelper = require("../../helpers/search")
 const paginationHelper = require("../../helpers/pagination")
+const sytemconfig = require("../../config/systemConfig")
+const systemConfig = require("../../config/systemConfig")
 
 // [GET] admin/products
 module.exports.index = async (req,res) =>{
@@ -113,6 +115,26 @@ module.exports.delete = async (req,res) =>{
 }
 
 //[GET] admin/products/create
-module.exports.create = async (req,res) =>{
+module.exports.create =  (req,res) =>{
     res.render("admin/pages/product/create.pug")
+}
+
+//[POST] admin/products/create
+module.exports.createPost= async(req,res)=>{
+     req.body.price = parseInt(req.body.price)
+     req.body.discountPercentage = parseInt(req.body.discountPercentage)
+     req.body.stock = parseInt(req.body.stock)
+     if(req.body.position){
+        req.body.position = parseInt(req.body.position)
+     }
+     else{
+        const count = await Product.countDocuments()
+        console.log(count)
+        req.body.position = count + 1
+     }
+     const product = new Product(req.body)
+     await product.save()
+
+     res.redirect(`${systemConfig.prefixAdmin}/products`)
+
 }

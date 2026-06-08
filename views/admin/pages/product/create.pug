@@ -42,10 +42,10 @@ block main
             )
 
           .mb-3
-            label.form-label(for="discountPercent") % Gia gia
+            label.form-label(for="discountPercentage") % Gia gia
             input.form-control(
-              id="discountPercent"
-              name="discountPercent"
+              id="discountPercentage"
+              name="discountPercentage"
               type="number"
               placeholder="Nhap gia san pham..."
               value = 0
@@ -69,6 +69,15 @@ block main
               name="thumbnail"
               type="text"
               placeholder="Duong dan anh"
+            )
+          
+          .mb-3
+            label.form-label(for="position") Vi tri
+            input.form-control(
+              id="position"
+              name="position"
+              type="number"
+              placeholder="Tu dong tang neu khong dien"
             )
           
 
