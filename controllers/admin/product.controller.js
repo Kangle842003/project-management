@@ -129,7 +129,7 @@ module.exports.createPost= async(req,res)=>{
      }
      else{
         const count = await Product.countDocuments()
-        console.log(count)
+        // console.log(count)
         req.body.position = count + 1
      }
      const product = new Product(req.body)
