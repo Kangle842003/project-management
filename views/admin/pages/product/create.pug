@@ -13,76 +13,73 @@ block main
         )
 
           .mb-3
-            label.form-label(for="title") Tieu de
+            label.form-label(for="title") TIÊU ĐỀ
             input.form-control(
               id="title"
               name="title"
               type="text"
-              placeholder="Nhap tieu de san pham..."
+              placeholder="Nhập tiêu đề sản phẩm..."
               required
             )
 
           .mb-3
-            label.form-label(for="desc") Mo ta
+            label.form-label(for="desc") MÔ TẢ
             textarea.form-control(
               id="desc"
               name="description"
               rows="4"
-              placeholder="Nhap mo ta san pham..."
+              placeholder="Nhập mô tả sản phẩm ..."
             )
 
           .mb-3
-            label.form-label(for="price") Gia
+            label.form-label(for="price") GIÁ
             input.form-control(
               id="price"
               name="price"
               type="number"
-              placeholder="Nhap gia san pham..."
               value = 0
             )
 
           .mb-3
-            label.form-label(for="discountPercentage") % Gia gia
+            label.form-label(for="discountPercentage") % GIẢM GIÁ
             input.form-control(
               id="discountPercentage"
               name="discountPercentage"
               type="number"
-              placeholder="Nhap gia san pham..."
               value = 0
             )
 
           .mb-3
-            label.form-label(for="stock") So luong
+            label.form-label(for="stock") SỐ LƯỢNG
             input.form-control(
               id="stock"
               name="stock"
               type="number"
-              placeholder="Nhap so luong..."
               value = 1
               min = 1
             )
           
           .mb-3
-            label.form-label(for="img") Duong dan Anh
+            label.form-label(for="img") ĐƯỜNG DẪN ẢNH
             input.form-control(
               id="img"
               name="thumbnail"
               type="text"
-              placeholder="Duong dan anh"
+              placeholder="Nhập đường dẫn ảnh ...."
             )
           
           .mb-3
-            label.form-label(for="position") Vi tri
+            label.form-label(for="position") VỊ TRÍ
             input.form-control(
               id="position"
               name="position"
               type="number"
-              placeholder="Tu dong tang neu khong dien"
+              placeholder="Vị trí sẽ tự động tăng nếu không điền ! "
             )
           
 
           .mb-4
-            label.form-label.d-block Trang thai
+            label.form-label.d-block TRẠNG THÁI
 
             .form-check
               input.form-check-input(
@@ -93,7 +90,7 @@ block main
                 checked
               )
               label.form-check-label(for="active")
-                | Hoat dong
+                | Hoạt động
 
             .form-check
               input.form-check-input(
@@ -103,12 +100,12 @@ block main
                 value="inactive"
               )
               label.form-check-label(for="inactive")
-                | Dung hoat dong
+                | Dừng hoạt động
 
-          button.btn.btn-primary.me-2(type="submit") Them moi
+          button.btn.btn-primary.me-2(type="submit") THÊM MỚI
 
           a.btn.btn-outline-secondary(
             href=`${prefixAdmin}/products`
           )
             i.fa-solid.fa-arrow-left.me-2
-            | Quay lai
+            | QUAY LẠI

@@ -6,11 +6,11 @@ include ../../mixins/form-change-multi.pug
 include ../../mixins/flash.pug
 block main
 
-  h1 Trang danh sach san pham
+  h1 TRANG DANH SÁCH SẢN PHẨM
   +success-flash("3000")
 
   .card.mb-3 
-    .card-header Bo loc va tim kiem 
+    .card-header BỘ LỌC VÀ TÌM KIẾM 
     .card-body 
       .row 
         .col-8 
@@ -20,7 +20,7 @@ block main
       
 
   .card.mb-3 
-    .card-header DANH SACH SAN PHAM
+    .card-header DANH SÁCH SẢN PHẨM
       .row 
         .col-8
           +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
@@ -28,7 +28,7 @@ block main
           a(
             href=`${prefixAdmin}/products/create`
             class="btn btn-success"
-          ) + Them moi
+          ) + THÊM MỚI SẢN PHẨM
     .card-body 
       table(
         class ="table table-bordered table-hover align-middle"
