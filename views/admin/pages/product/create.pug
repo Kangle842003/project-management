@@ -1,0 +1,105 @@
+extends ../dashboard/index.pug
+
+block main
+  .container.mt-4
+    .card.shadow-sm.border-0
+      .card-header.bg-primary.text-white
+        h4.mb-0 Them san pham moi
+
+      .card-body
+        form(
+          action=`${prefixAdmin}/products/create`
+          method="POST"
+        )
+
+          .mb-3
+            label.form-label(for="title") Tieu de
+            input.form-control(
+              id="title"
+              name="title"
+              type="text"
+              placeholder="Nhap tieu de san pham..."
+              required
+            )
+
+          .mb-3
+            label.form-label(for="desc") Mo ta
+            textarea.form-control(
+              id="desc"
+              name="description"
+              rows="4"
+              placeholder="Nhap mo ta san pham..."
+            )
+
+          .mb-3
+            label.form-label(for="price") Gia
+            input.form-control(
+              id="price"
+              name="price"
+              type="number"
+              placeholder="Nhap gia san pham..."
+              value = 0
+            )
+
+          .mb-3
+            label.form-label(for="discountPercent") % Gia gia
+            input.form-control(
+              id="discountPercent"
+              name="discountPercent"
+              type="number"
+              placeholder="Nhap gia san pham..."
+              value = 0
+            )
+
+          .mb-3
+            label.form-label(for="stock") So luong
+            input.form-control(
+              id="stock"
+              name="stock"
+              type="number"
+              placeholder="Nhap so luong..."
+              value = 1
+              min = 1
+            )
+          
+          .mb-3
+            label.form-label(for="img") Duong dan Anh
+            input.form-control(
+              id="img"
+              name="thumbnail"
+              type="text"
+              placeholder="Duong dan anh"
+            )
+          
+
+          .mb-4
+            label.form-label.d-block Trang thai
+
+            .form-check
+              input.form-check-input(
+                type="radio"
+                name="status"
+                id="active"
+                value="active"
+                checked
+              )
+              label.form-check-label(for="active")
+                | Hoat dong
+
+            .form-check
+              input.form-check-input(
+                type="radio"
+                name="status"
+                id="inactive"
+                value="inactive"
+              )
+              label.form-check-label(for="inactive")
+                | Dung hoat dong
+
+          button.btn.btn-primary.me-2(type="submit") Them moi
+
+          a.btn.btn-outline-secondary(
+            href=`${prefixAdmin}/products`
+          )
+            i.fa-solid.fa-arrow-left.me-2
+            | Quay lai

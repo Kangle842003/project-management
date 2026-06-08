@@ -111,3 +111,8 @@ module.exports.delete = async (req,res) =>{
     req.flash("success","Da xoa thanh cong san pham !")
     res.redirect(req.get("Referrer") )
 }
+
+//[GET] admin/products/create
+module.exports.create = async (req,res) =>{
+    res.render("admin/pages/product/create.pug")
+}

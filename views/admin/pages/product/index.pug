@@ -15,14 +15,20 @@ block main
       .row 
         .col-8 
           +filter-status(filterStatus)      
-    
         .col-4
           +search(keyword)
       
 
   .card.mb-3 
     .card-header DANH SACH SAN PHAM
-      +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+      .row 
+        .col-8
+          +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+        .col-4 
+          a(
+            href=`${prefixAdmin}/products/create`
+            class="btn btn-success"
+          ) + Them moi
     .card-body 
       table(
         class ="table table-bordered table-hover align-middle"

@@ -11,5 +11,7 @@ router.patch("/change-multi",controller.changeMulti)
 
 router.delete("/delete/:id",controller.delete)
 
+router.get("/create",controller.create)
+
 
 module.exports = router
