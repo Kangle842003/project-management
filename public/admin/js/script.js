@@ -158,18 +158,29 @@ if(buttonPage.length > 0){
 // End req-flash thong bao
 
 // Preview-imgage
-    const uploadPreview = document.querySelector("[upload-preview]")
-    if(uploadPreview){
-        const uploadPreviewInput = uploadPreview.querySelector("[upload-preview-input]")
-        const uploadPreviewImg = uploadPreview.querySelector("[upload-preview-img]")
-        // console.log(uploadPreviewInput)
-        // console.log(uploadPreviewImg)
-        uploadPreviewInput.addEventListener("change",(e)=>{
-            console.log(e)
-            const file = e.target.files[0]
-            if(file){
-                uploadPreviewImg.src = URL.createObjectURL(file)
-            }
-        })
-    }
+    // Preview-image
+const uploadPreview = document.querySelector("[upload-preview]")
+
+if(uploadPreview){
+    const uploadPreviewInput = uploadPreview.querySelector("[upload-preview-input]")
+    const uploadPreviewImg = uploadPreview.querySelector("[upload-preview-img]")
+    const closePreviewImage = uploadPreview.querySelector("[close-preview-image]")
+
+    uploadPreviewInput.addEventListener("change",(e)=>{
+        const file = e.target.files[0]
+
+        if(file){
+            uploadPreviewImg.src = URL.createObjectURL(file)
+
+            closePreviewImage.setAttribute("close-preview-image","true")
+        }
+    })
+    closePreviewImage.addEventListener("click",()=>{
+    uploadPreviewImg.src = ""
+
+    uploadPreviewInput.value = ""
+
+    closePreviewImage.setAttribute("close-preview-image","false")
+})
+}
 // End Preview-image
