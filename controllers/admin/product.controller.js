@@ -116,7 +116,9 @@ module.exports.delete = async (req,res) =>{
 
 //[GET] admin/products/create
 module.exports.create =  (req,res) =>{
-    res.render("admin/pages/product/create.pug")
+    res.render("admin/pages/product/create.pug",{
+        pagetitle:"Trang them moi san pham"
+    })
 }
 
 //[POST] admin/products/create
@@ -141,4 +143,49 @@ module.exports.createPost= async(req,res)=>{
 
     res.redirect(`${systemConfig.prefixAdmin}/products`)
 
+}
+
+//[GET] admin/products/edit/:id
+module.exports.edit = async (req,res) =>{
+    try {
+        const id = req.params.id
+    // console.log(id)
+    let find = {
+        deleted:false,
+    }
+    if(id){
+        find._id = id
+    }
+    const data = await Product.findOne(find)
+    // console.log(data)
+    res.render("admin/pages/product/edit.pug",{
+            data:data,
+            pagetitle:"Trang chinh sua san pham"
+        })
+    } catch (error) {
+        req.flash("error","Duong dan khong hop le")
+       res.redirect(req.get("Referrer") || "/admin/products")
+    }
+    
+}
+
+// [PATCH] admin/products/edit/:id
+module.exports.editPatch = async (req,res) =>{
+    // console.log(req.params)
+    // console.log(req.body)
+    try {
+    const id = req.params.id
+    if(req.file){
+    req.body.thumbnail = `/uploads/${req.file.filename}`
+        }
+    await Product.updateOne(
+        { _id: id },
+        req.body
+    )
+    req.flash("success","Cap nhap san pham thanh cong !")
+    res.redirect(`${systemConfig.prefixAdmin}/products`)
+    } catch (error) {
+       req.flash("error","Cập nhật thất bại")
+        res.redirect(req.get("Referrer") || "/admin/products")
+    }
 }

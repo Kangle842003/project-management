@@ -6,11 +6,11 @@ block main
   .container.mt-4
     .card.shadow-sm.border-0
       .card-header.bg-primary.text-white
-        h4.mb-0 Them san pham moi
+        h4.mb-0 Chinh sua san pham
 
       .card-body
         form(
-          action=`${prefixAdmin}/products/create`
+          action=`${prefixAdmin}/products/edit/${data.id}?_method=PATCH`
           method="POST"
           enctype="multipart/form-data"
         )
@@ -23,6 +23,7 @@ block main
               type="text"
               placeholder="Nhập tiêu đề sản phẩm..."
               required
+              value = data.title
             )
 
           .mb-3
@@ -32,7 +33,7 @@ block main
               name="description"
               rows="4"
               placeholder="Nhập mô tả sản phẩm ..."
-            )
+            ) #{data.description}
 
           .mb-3
             label.form-label(for="price") GIÁ
@@ -40,7 +41,7 @@ block main
               id="price"
               name="price"
               type="number"
-              value = 0
+              value = data.price
             )
 
           .mb-3
@@ -49,7 +50,7 @@ block main
               id="discountPercentage"
               name="discountPercentage"
               type="number"
-              value = 0
+              value = data.discountPercentage
             )
 
           .mb-3
@@ -58,7 +59,7 @@ block main
               id="stock"
               name="stock"
               type="number"
-              value = 1
+              value = data.stock
               min = 1
             )
           
@@ -73,7 +74,7 @@ block main
               upload-preview-input
             )
             img(
-              src="" 
+              src=data.thumbnail
               upload-preview-img
               class = "preview-img"
             )
@@ -93,6 +94,7 @@ block main
               name="position"
               type="number"
               placeholder="Vị trí sẽ tự động tăng nếu không điền ! "
+              value = data.position
             )
     
           .mb-4
@@ -104,7 +106,7 @@ block main
                 name="status"
                 id="active"
                 value="active"
-                checked
+                checked = (data.status == "active" ? true : false)
               )
               label.form-check-label(for="active")
                 | Hoạt động
@@ -115,11 +117,12 @@ block main
                 name="status"
                 id="inactive"
                 value="inactive"
+                checked = (data.status == "inactive" ? true : false)
               )
               label.form-check-label(for="inactive")
                 | Dừng hoạt động
 
-          button.btn.btn-primary.me-2(type="submit") THÊM MỚI
+          button.btn.btn-primary.me-2(type="submit") CHINH SUA 
 
           a.btn.btn-outline-secondary(
             href=`${prefixAdmin}/products`

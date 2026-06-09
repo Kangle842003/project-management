@@ -8,6 +8,7 @@ block main
 
   h1 TRANG DANH SÁCH SẢN PHẨM
   +success-flash("3000")
+  +error-flash("4000")
 
   .card.mb-3 
     .card-header BỘ LỌC VÀ TÌM KIẾM 
@@ -85,9 +86,9 @@ block main
                       button-change-status = item.status
                       ) Dừng hoạt động
                 td
-                  button(
+                  a(
+                    href =`${prefixAdmin}/products/edit/${item.id}`
                     class = "btn btn-sm btn-info me-1"
-                    
                   ) Sửa
                   button(
                     class = "btn btn-sm btn-danger"
