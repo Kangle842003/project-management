@@ -108,3 +108,15 @@ header h1 {
     visibility: hidden;
     transform: translateX(100%);
 }
+/* upload-image-preview */
+.preview-img[src =""]{
+  display: none;
+}
+.preview-img{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 10px;
+}

@@ -35,5 +35,4 @@ if(buttonDeleteItem.length>0){
         })
     })
 }
-
 // End delete 1 item

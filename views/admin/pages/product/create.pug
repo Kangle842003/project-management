@@ -60,7 +60,7 @@ block main
               min = 1
             )
           
-          .mb-3
+          .mb-3(upload-preview)
             label.form-label(for="img") ĐƯỜNG DẪN ẢNH
             input.form-control(
               id="img"
@@ -68,6 +68,12 @@ block main
               type="file"
               accept ="image/*"
               placeholder="Nhập đường dẫn ảnh ...."
+              upload-preview-input
+            )
+            img(
+              src="" 
+              upload-preview-img
+              class = "preview-img"
             )
           
           .mb-3
@@ -78,8 +84,7 @@ block main
               type="number"
               placeholder="Vị trí sẽ tự động tăng nếu không điền ! "
             )
-          
-
+    
           .mb-4
             label.form-label.d-block TRẠNG THÁI
 
@@ -111,3 +116,4 @@ block main
           )
             i.fa-solid.fa-arrow-left.me-2
             | QUAY LẠI
+  script(src="/admin/js/product.js") 
