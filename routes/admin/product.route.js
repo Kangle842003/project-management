@@ -2,7 +2,7 @@ const express = require("express")
 const multer = require('multer')
 const storage = require("../../helpers/storageMulter.js")
 const upload = multer({ storage: storage() });
-
+const validate = require("../../validates/admin/product.validate.js")
 const router = express.Router()
 
 
@@ -18,6 +18,10 @@ router.delete("/delete/:id",controller.delete)
 
 router.get("/create",controller.create)
 
-router.post("/create",upload.single('thumbnail'),controller.createPost)
+router.post(
+    "/create",
+    upload.single('thumbnail'),
+    validate.create,
+    controller.createPost)
 
 module.exports = router

@@ -1,6 +1,8 @@
 extends ../dashboard/index.pug
+include ../../mixins/alert.pug
 
 block main
+  +error-flash(5000)
   .container.mt-4
     .card.shadow-sm.border-0
       .card-header.bg-primary.text-white

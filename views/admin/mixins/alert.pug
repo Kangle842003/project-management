@@ -7,3 +7,13 @@ mixin success-flash(time)
       time = time)
       h3 #{messages.success}
       span(close-alert) &times;
+
+mixin error-flash(time)
+  - if (messages.error)
+    div(
+      class="alert alert-danger" 
+      role="alert"
+      req-flash 
+      time = time)
+      h3 #{messages.error}
+      span(close-alert) &times;
