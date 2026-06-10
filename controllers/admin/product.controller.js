@@ -189,3 +189,25 @@ module.exports.editPatch = async (req,res) =>{
         res.redirect(req.get("Referrer") || "/admin/products")
     }
 }
+
+//[GET] admin/products/detail/:id
+module.exports.detail = async (req,res) =>{
+    try {
+        const id = req.params.id
+    let find = {
+        deleted : false,
+        _id : id
+    }
+    const data = await Product.findOne(find)
+    console.log(data)
+    res.render("admin/pages/product/detail.pug",{
+        data :data,
+        pagetitle : data.title
+    }
+    )
+    } catch (error) {
+        req.flash("error","Duong dan khong hop le")
+        res.redirect(req.get("Referrer") || "/admin/products")
+    }
+    
+}
