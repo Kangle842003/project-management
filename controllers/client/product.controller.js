@@ -32,7 +32,7 @@ module.exports.view = async (req, res) => {
     console.log(data)
 
     res.render("client/pages/product/detail", {
-        pageTitle: data.title,
+        pagetitle: data.title,
         data: data,
     });
 };
