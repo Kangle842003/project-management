@@ -4,6 +4,7 @@ include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
+include ../../mixins/sort.pug
 block main
 
   h1 TRANG DANH SÁCH SẢN PHẨM
@@ -18,7 +19,9 @@ block main
           +filter-status(filterStatus)      
         .col-4
           +search(keyword)
-      
+      .row 
+        +sort(sortKey,sortValue)
+
 
   .card.mb-3 
     .card-header DANH SÁCH SẢN PHẨM
@@ -68,7 +71,7 @@ block main
                     type ="number"
                     value = item.position
                     min = 1
-                    class="form-control w-25"
+                    class="form-control "
                     required
                   )
                 td.text-danger.fw-bold #{item.price} $

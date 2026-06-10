@@ -1,0 +1,39 @@
+mixin sort(sortKey,sortValue)
+  .col-8v SẮP XẾP THEO TIÊU CHÍ
+          .row.align-items-center
+            .col-md-4
+              select.form-select(sort-select)
+                option(value="") -- Chọn tiêu chí --
+
+                option(
+                  value="position-desc"
+                  selected=(sortKey == "position" && sortValue == "desc")
+                ) Vị trí giảm dần
+
+                option(
+                  value="position-asc"
+                  selected=(sortKey == "position" && sortValue == "asc")
+                ) Vị trí tăng dần
+
+                option(
+                  value="price-desc"
+                  selected=(sortKey == "price" && sortValue == "desc")
+                ) Giá giảm dần
+
+                option(
+                  value="price-asc"
+                  selected=(sortKey == "price" && sortValue == "asc")
+                ) Giá tăng dần
+
+                option(
+                  value="title-asc"
+                  selected=(sortKey == "title" && sortValue == "asc")
+                ) Tu A-Z
+
+                option(
+                  value="title-desc"
+                  selected=(sortKey == "title" && sortValue == "desc")
+                ) Tu Z-A
+
+            .col-md-2
+              button.btn.btn-danger.w-100(sort-clear) Xóa lọc

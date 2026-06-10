@@ -160,7 +160,6 @@ if(buttonPage.length > 0){
 // Preview-imgage
     // Preview-image
 const uploadPreview = document.querySelector("[upload-preview]")
-
 if(uploadPreview){
     const uploadPreviewInput = uploadPreview.querySelector("[upload-preview-input]")
     const uploadPreviewImg = uploadPreview.querySelector("[upload-preview-img]")
@@ -184,3 +183,34 @@ if(uploadPreview){
 })
 }
 // End Preview-image
+
+// Sort
+const sortSelect = document.querySelector("[sort-select]");
+if(sortSelect){
+    let url = new URL(window.location.href);
+    sortSelect.addEventListener("change", (e) => {
+        const value = e.target.value;
+        if(value){
+            const [sortKey, sortValue] = value.split("-");
+            url.searchParams.set("sortKey", sortKey);
+            url.searchParams.set("sortValue", sortValue);
+        } else {
+            url.searchParams.delete("sortKey");
+            url.searchParams.delete("sortValue");
+        }
+        window.location.href = url.href;
+    });
+}
+
+
+// CLEAR SORT
+const sortClear = document.querySelector("[sort-clear]");
+if(sortClear){
+    let url = new URL(window.location.href);
+    sortClear.addEventListener("click", () => {
+        url.searchParams.delete("sortKey");
+        url.searchParams.delete("sortValue");
+        window.location.href = url.href;
+    });
+}
+// End Sort

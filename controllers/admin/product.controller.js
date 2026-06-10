@@ -32,11 +32,19 @@ module.exports.index = async (req,res) =>{
 
     const count = await Product.countDocuments({deleted:false})
     const pages = Math.ceil(count/objectPagination.limitItem)
+
+    let sort = {};
+        if(req.query.sortKey && req.query.sortValue){
+            sort[req.query.sortKey] = req.query.sortValue;
+        }
+        else{
+            sort.position = "desc";
+        }
     
 // End Pagination
 
     const data = await Product.find(find)
-    .sort({ position: "desc" })
+    .sort(sort)
     .limit(objectPagination.limitItem)
     .skip(objectPagination.skipItem)
     
@@ -47,6 +55,8 @@ module.exports.index = async (req,res) =>{
         objectPagination: objectPagination,
         keyword : search.keyword,
         pages:pages,
+        sortKey: req.query.sortKey,
+        sortValue: req.query.sortValue,
         pagetitle : "Trang san pham"
     })
 }
