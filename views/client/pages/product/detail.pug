@@ -1,0 +1,131 @@
+extends ../../layouts/default.pug
+
+block main
+  .container.py-5
+
+    .row.g-5
+      // LEFT
+      .col-lg-5
+        .card.border-0.shadow-sm.rounded-4.overflow-hidden
+          .bg-light.p-4
+            img.w-100(
+              src=data.thumbnail
+              alt=data.title
+              style="object-fit:cover;"
+            )
+
+      // RIGHT
+      .col-lg-7
+        // Title
+        h1.fw-bold.mb-3(style="font-size:32px")
+          = data.title
+
+        // Rating + Sold
+        .d-flex.align-items-center.gap-3.mb-3
+          .text-warning.fs-5
+            i.fa-solid.fa-star
+            i.fa-solid.fa-star
+            i.fa-solid.fa-star
+            i.fa-solid.fa-star
+            i.fa-solid.fa-star
+
+          span.text-muted
+            | (120 đánh giá)
+
+          span.text-muted
+            | Đã bán 500+
+
+        // Price
+        .bg-light.rounded-4.p-4.mb-4
+          .d-flex.align-items-center.flex-wrap.gap-3
+            h2.text-danger.fw-bold.mb-0
+              = data.priceNew.toLocaleString("vi-VN") + "đ"
+
+            del.text-secondary.fs-5
+              = data.price.toLocaleString("vi-VN") + "đ"
+
+            if(data.discountPercentage > 0)
+              span.badge.bg-danger.fs-6.px-3.py-2
+                | -#{data.discountPercentage}%
+
+        // Status
+        .mb-4
+          if(data.stock > 0)
+            span.badge.bg-success.fs-6.px-3.py-2
+              i.fa-solid.fa-check.me-2
+              | Còn hàng
+          else
+            span.badge.bg-danger.fs-6.px-3.py-2
+              | Hết hàng
+
+        // Description short
+        .mb-4
+          h5.fw-bold.mb-3 Mô tả sản phẩm
+          p.text-secondary.lh-lg
+            = data.description
+
+        // Quantity
+        .mb-4
+          h6.fw-bold.mb-3 Số lượng
+
+          .d-flex.align-items-center.gap-3
+            input.form-control.text-center(
+              type="number"
+              value="1"
+              min="1"
+              style="width:80px"
+            )
+
+        // Action Buttons
+        .d-flex.flex-wrap.gap-3.mb-4
+          button.btn.btn-danger.btn-lg.px-5
+            i.fa-solid.fa-cart-shopping.me-2
+            | Thêm vào giỏ
+
+          button.btn.btn-outline-dark.btn-lg.px-5
+            i.fa-solid.fa-bolt.me-2
+            | Mua ngay
+
+        // Info Box
+        .border.rounded-4.p-4.bg-light
+          .row.g-3
+
+            .col-md-6
+              .d-flex.align-items-center.gap-3
+                i.fa-solid.fa-truck-fast.fs-4.text-primary
+                div
+                  strong Giao hàng nhanh
+                  p.mb-0.text-secondary Toàn quốc
+
+            .col-md-6
+              .d-flex.align-items-center.gap-3
+                i.fa-solid.fa-shield-halved.fs-4.text-success
+                div
+                  strong Bảo hành
+                  p.mb-0.text-secondary 12 tháng chính hãng
+
+            .col-md-6
+              .d-flex.align-items-center.gap-3
+                i.fa-solid.fa-rotate-left.fs-4.text-warning
+                div
+                  strong Đổi trả
+                  p.mb-0.text-secondary Trong 7 ngày
+
+            .col-md-6
+              .d-flex.align-items-center.gap-3
+                i.fa-solid.fa-headset.fs-4.text-danger
+                div
+                  strong Hỗ trợ
+                  p.mb-0.text-secondary 24/7
+
+    // DETAIL
+    .card.border-0.shadow-sm.rounded-4.mt-5
+      .card-header.bg-white.border-0.pt-4.pb-0
+        h3.fw-bold Chi tiết sản phẩm
+
+      .card-body.p-4
+        .text-secondary.lh-lg
+          != data.description
+
+    // RELATED
+    

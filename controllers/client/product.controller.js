@@ -6,7 +6,7 @@ module.exports.index = async (req,res)=>{
         deleted:false,
         status: "active"
     }
-    const data = await Product.find(find)
+    const data = await Product.find(find).sort({ position: "desc" })
     // console.log(data)
     res.render("client/pages/product/index.pug",
         {   
@@ -15,3 +15,24 @@ module.exports.index = async (req,res)=>{
         }
     )   
 }
+
+// [GET] /products/detail/:slug
+module.exports.view = async (req, res) => {
+    const id = req.params.id;
+
+    const data = await Product.findOne({
+        _id: id,
+        deleted: false,
+        status: "active"
+    });
+
+    data.priceNew = Math.floor(
+        data.price * (100 - data.discountPercentage) / 100
+    );
+    console.log(data)
+
+    res.render("client/pages/product/detail", {
+        pageTitle: data.title,
+        data: data,
+    });
+};
