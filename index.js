@@ -1,4 +1,5 @@
 const express = require("express")
+const path = require('path');
 const flash = require('express-flash')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
@@ -16,6 +17,9 @@ const app = express();
 // dung de doc name va value trong form
 app.use(methodOverride('_method'))
 app.use(bodyParser.urlencoded())
+
+// tinyMCE
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
 // Dung de su dung thu vien express-flash de hien thi ra thong bao
 app.use(cookieParser('8484Khang'));

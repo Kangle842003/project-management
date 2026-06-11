@@ -207,7 +207,7 @@ module.exports.detail = async (req,res) =>{
         _id : id
     }
     const data = await Product.findOne(find)
-    console.log(data)
+    // console.log(data)
     res.render("admin/pages/product/detail.pug",{
         data :data,
         pagetitle : data.title
