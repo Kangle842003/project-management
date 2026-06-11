@@ -145,7 +145,7 @@ module.exports.createPost= async(req,res)=>{
         // console.log(count)
         req.body.position = count + 1
     }
-    console.log(req.body.thumbnail)
+   
     const product = new Product(req.body)
     await product.save()
 

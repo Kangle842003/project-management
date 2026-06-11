@@ -1,0 +1,108 @@
+extends ../dashboard/index.pug
+
+block main
+
+  .container.mt-4
+    .card.shadow-sm.border-0
+      .card-header.bg-primary.text-white
+        h4.mb-0 Them san danh muc
+
+      .card-body
+        form(
+          action=`${prefixAdmin}/products-category/create`
+          method="POST"
+          enctype="multipart/form-data"
+        )
+
+          .mb-3
+            label.form-label(for="title") TIÊU ĐỀ
+            input.form-control(
+              id="title"
+              name="title"
+              type="text"
+              placeholder="Nhập tiêu đề danh mục..."
+              required
+            )
+          .mb-3
+              label.form-label(for="parent_id") DANH MỤC CHA
+              input.form-control(
+                id="parent_id"
+                name="parent_id"
+                type="text"
+                placeholder="Nhập danh mục cha..."
+                
+            )
+          .mb-3
+            label.form-label(for="desc") MÔ TẢ
+            textarea.form-control(
+              id="desc"
+              name="description"
+              rows="4"
+              placeholder="Nhập mô tả danh mục ..."
+              class ="timymce"
+            )
+
+          
+          .mb-3(upload-preview)
+            label.form-label(for="img") ĐƯỜNG DẪN ẢNH
+            input.form-control(
+              id="img"
+              name="thumbnail"
+              type="file"
+              accept ="image/*"
+              placeholder="Nhập đường dẫn ảnh ...."
+              upload-preview-input
+            )
+            img(
+              src="" 
+              upload-preview-img
+              class = "preview-img"
+            )
+            button(
+              type="button"
+              class = "btn btn-secondary close-preview"
+              close-preview-image="false"
+            ) Xoa Anh
+          .mb-3
+            label.form-label(for="position") VỊ TRÍ
+            input.form-control(
+              id="position"
+              name="position"
+              type="number"
+              placeholder="Vị trí sẽ tự động tăng nếu không điền ! "
+            )
+    
+          .mb-4
+            label.form-label.d-block TRẠNG THÁI
+
+            .form-check
+              input.form-check-input(
+                type="radio"
+                name="status"
+                id="active"
+                value="active"
+                checked
+              )
+              label.form-check-label(for="active")
+                | Hoạt động
+
+            .form-check
+              input.form-check-input(
+                type="radio"
+                name="status"
+                id="inactive"
+                value="inactive"
+              )
+              label.form-check-label(for="inactive")
+                | Dừng hoạt động
+
+          button.btn.btn-primary.me-2(type="submit") THÊM MỚI
+
+          a.btn.btn-outline-secondary(
+            href=`${prefixAdmin}/products-category`
+          )
+            i.fa-solid.fa-arrow-left.me-2
+            | QUAY LẠI
+
+  script(src="/tinymce/tinymce.min.js") 
+  script(src="/admin/js/tinymce-config.js") 
