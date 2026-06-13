@@ -1,5 +1,5 @@
 extends ../dashboard/index.pug
-
+include ../../mixins/select-tree.pug
 block main
 
   .container.mt-4
@@ -30,10 +30,8 @@ block main
               id="parent_id"
               class="form-control"
             )
-              option(value="") --Chọn danh mục--
-              if data
-                each item in data
-                  option(value=item._id)= item.title
+              option(value="") -- Chọn danh mục --
+              +select-tree(data)
           .mb-3
             label.form-label(for="desc") MÔ TẢ
             textarea.form-control(
