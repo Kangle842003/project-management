@@ -1,5 +1,5 @@
 extends ../../layouts/default.pug
-
+include ../../mixins/table-tree.pug
 block main 
   .card.mb-3 
     .card-header DANH MUC SAN PHAM
@@ -22,60 +22,8 @@ block main
               th Hình ảnh
               th Tiêu đề
               th Vị trí
-              th Danh muc cha
               th Trạng thái
               th Hành động
 
           tbody
-            each item,index in data
-              
-              tr
-                td 
-                  input(type ="checkbox" check-box-item value = item.id)
-                td #{index +1}
-                td
-                  img(
-                    src=item.thumbnail
-                    alt = item.title
-                    width="80"
-                    height="80"
-                  )
-                td #{item.title}
-                td 
-                  input(
-                    name = "position"
-                    type ="number"
-                    value = item.position
-                    min = 1
-                    class="form-control "
-                    required
-                  )
-                td.text-danger.fw-bold
-                  input(value = item.parent_id)
-                td
-                  if(item.status == "active")
-                    button(
-                      class="badge bg-success"
-                      data-id = item._id
-                      button-change-status = item.status
-                      ) Hoạt động
-                  else 
-                    button(
-                      class="badge bg-danger"
-                      data-id = item._id
-                      button-change-status = item.status
-                      ) Dừng hoạt động
-                td
-                  a(
-                    href =`${prefixAdmin}/products/edit/${item.id}`
-                    class = "btn btn-sm btn-info me-1"
-                  ) Sửa
-                  a(
-                    href =`${prefixAdmin}/products/detail/${item.id}`
-                    class = "btn btn-sm btn-secondary me-1"
-                  ) Xem
-                  button(
-                    class = "btn btn-sm btn-danger"
-                    button-delete-item
-                    data-id = item.id
-                  ) Xóa
+            +table-tree(data)
