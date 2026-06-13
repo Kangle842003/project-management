@@ -24,14 +24,16 @@ block main
               required
             )
           .mb-3
-              label.form-label(for="parent_id") DANH MỤC CHA
-              input.form-control(
-                id="parent_id"
-                name="parent_id"
-                type="text"
-                placeholder="Nhập danh mục cha..."
-                
+            label.form-label(for="parent_id") DANH MỤC CHA
+            select(
+              name="parent_id"
+              id="parent_id"
+              class="form-control"
             )
+              option(value="") --Chọn danh mục--
+              if data
+                each item in data
+                  option(value=item._id)= item.title
           .mb-3
             label.form-label(for="desc") MÔ TẢ
             textarea.form-control(

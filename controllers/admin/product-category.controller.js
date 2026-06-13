@@ -14,8 +14,14 @@ module.exports.index = async (req,res) =>{
 }
 
 //[GET] /admin/products-category/create
-module.exports.create = (req,res) =>{
+module.exports.create = async (req,res) =>{
+    let find = {
+        deleted:false
+    }
+    const data = await productCategory.find(find)
+    console.log(data)
     res.render("admin/pages/product-category/create",{
+        data:data,
         pagetitle:"TAO MOI DANH MUC"
     })
 }
@@ -30,7 +36,7 @@ module.exports.createPost = async (req,res) =>{
         // console.log(count)
         req.body.position = count + 1
     }
-    console.log(req.body)
+    // console.log(req.body)
     const data = new productCategory(req.body)
     await data.save()
 
