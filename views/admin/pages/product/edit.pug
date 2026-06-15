@@ -1,5 +1,6 @@
 extends ../dashboard/index.pug
 include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
 
 block main
   +error-flash(5000)
@@ -25,6 +26,15 @@ block main
               required
               value = data.title
             )
+          .mb-3
+            label.form-label(for="product_category_id") DANH MỤC CHA
+            select(
+              name="product_category_id"
+              id="product_category_id"
+              class="form-control"
+            )
+              option(value="") -- Chọn danh mục --
+              +select-tree(newData,1,data.product_category_id)
 
           .mb-3
             label.form-label(for="desc") MÔ TẢ

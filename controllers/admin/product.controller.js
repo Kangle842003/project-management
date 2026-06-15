@@ -173,9 +173,14 @@ module.exports.edit = async (req,res) =>{
         find._id = id
     }
     const data = await Product.findOne(find)
+    const records = await productCategory.find({
+        deleted:false
+    })
+    const newData = createTree(records)
     // console.log(data)
     res.render("admin/pages/product/edit.pug",{
             data:data,
+            newData:newData,
             pagetitle:"Trang chinh sua san pham"
         })
     } catch (error) {
