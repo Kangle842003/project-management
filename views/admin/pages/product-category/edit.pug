@@ -8,7 +8,7 @@ block main
         h4.mb-0 Chinh sua danh muc
       .card-body
         form(
-          action=`${prefixAdmin}/products-category/edit?_method=PATCH`
+          action=`${prefixAdmin}/products-category/edit/${data._id}?_method=PATCH`
           method="POST"
           enctype="multipart/form-data"
         )

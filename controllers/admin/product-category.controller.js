@@ -57,7 +57,7 @@ module.exports.edit =  async (req,res) =>{
         _id : req.params.id
     }
     const data = await productCategory.findOne(find)
-    console.log(data)
+    // console.log(data)
     const records = await productCategory.find({
         deleted:false
     })
@@ -71,5 +71,23 @@ module.exports.edit =  async (req,res) =>{
     } catch (error) {
         req.flash("error","Sai duong dan")
         res.redirect(req.get("Referrer") || "/admin/products-category")
+    }
+}
+
+//[PATCH] /admin/products-category/edit/:id
+module.exports.editPatch = async (req,res) =>{
+    // console.log(req.params)
+    // console.log(req.body)
+    try {
+    const id = req.params.id
+    await productCategory.updateOne(
+        { _id: id },
+        req.body
+    )
+    req.flash("success","Cap nhap danh muc san pham thanh cong !")
+    res.redirect(`${systemConfig.prefixAdmin}/products-category`)
+    } catch (error) {
+       req.flash("error","Cập nhật thất bại")
+        res.redirect(req.get("Referrer") || "/admin/products")
     }
 }

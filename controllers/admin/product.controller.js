@@ -183,9 +183,6 @@ module.exports.editPatch = async (req,res) =>{
     // console.log(req.body)
     try {
     const id = req.params.id
-    if(req.file){
-    req.body.thumbnail = `/uploads/${req.file.filename}`
-        }
     await Product.updateOne(
         { _id: id },
         req.body
