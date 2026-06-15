@@ -58,7 +58,7 @@ module.exports.edit =  async (req,res) =>{
     }
     const data = await productCategory.findOne(find)
     // console.log(data)
-    const records = await productCategory.find({
+    const records = await productCategory.find({ 
         deleted:false
     })
     const newData = createTree(records)

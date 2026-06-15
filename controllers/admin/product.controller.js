@@ -1,4 +1,7 @@
 const Product = require("../../models/product.model")
+const productCategory = require("../../models/product-category.model")
+
+const createTree = require("../../helpers/createTree.js");
 const filterStatusHelper = require("../../helpers/filterStatus")
 const searchHelper = require("../../helpers/search")
 const paginationHelper = require("../../helpers/pagination")
@@ -125,9 +128,14 @@ module.exports.delete = async (req,res) =>{
 }
 
 //[GET] admin/products/create
-module.exports.create =  (req,res) =>{
+module.exports.create = async (req,res) =>{
+    const data = await productCategory.find({
+        deleted:false
+    })
+    const newData = createTree(data)
     res.render("admin/pages/product/create.pug",{
-        pagetitle:"Trang them moi san pham"
+        pagetitle:"Trang them moi san pham",
+        data:newData
     })
 }
 
@@ -145,10 +153,10 @@ module.exports.createPost= async(req,res)=>{
         // console.log(count)
         req.body.position = count + 1
     }
-   
+    console.log(req.body)
     const product = new Product(req.body)
     await product.save()
-
+    req.flash("sucess","Tao san pham moi thanh cong")
     res.redirect(`${systemConfig.prefixAdmin}/products`)
 
 }
