@@ -1,20 +1,17 @@
 extends ../dashboard/index.pug
 include ../../mixins/select-tree.pug
-include ../../mixins/alert.pug
 block main
-  +error-flash(4000)
+
   .container.mt-4
     .card.shadow-sm.border-0
       .card-header.bg-primary.text-white
-        h4.mb-0 Them san danh muc
-
+        h4.mb-0 Chinh sua danh muc
       .card-body
         form(
-          action=`${prefixAdmin}/products-category/create`
+          action=`${prefixAdmin}/products-category/edit?_method=PATCH`
           method="POST"
           enctype="multipart/form-data"
         )
-
           .mb-3
             label.form-label(for="title") TIÊU ĐỀ
             input.form-control(
@@ -23,6 +20,7 @@ block main
               type="text"
               placeholder="Nhập tiêu đề danh mục..."
               required
+              value = data.title
             )
           .mb-3
             label.form-label(for="parent_id") DANH MỤC CHA
@@ -32,7 +30,7 @@ block main
               class="form-control"
             )
               option(value="") -- Chọn danh mục --
-              +select-tree(data)
+              +select-tree(newData,1,data.parent_id)
           .mb-3
             label.form-label(for="desc") MÔ TẢ
             textarea.form-control(
@@ -41,7 +39,7 @@ block main
               rows="4"
               placeholder="Nhập mô tả danh mục ..."
               class ="timymce"
-            )
+            ) #{data.description}
 
           
           .mb-3(upload-preview)
@@ -55,7 +53,7 @@ block main
               upload-preview-input
             )
             img(
-              src="" 
+              src=data.thumbnail || ""
               upload-preview-img
               class = "preview-img"
             )
@@ -71,6 +69,7 @@ block main
               name="position"
               type="number"
               placeholder="Vị trí sẽ tự động tăng nếu không điền ! "
+              value = data.position
             )
     
           .mb-4
@@ -82,7 +81,7 @@ block main
                 name="status"
                 id="active"
                 value="active"
-                checked
+                checked = (data.status == "active" ? true:false)
               )
               label.form-check-label(for="active")
                 | Hoạt động
@@ -93,11 +92,12 @@ block main
                 name="status"
                 id="inactive"
                 value="inactive"
+                 checked = (data.status == "inactive" ? true:false)
               )
               label.form-check-label(for="inactive")
                 | Dừng hoạt động
 
-          button.btn.btn-primary.me-2(type="submit") THÊM MỚI
+          button.btn.btn-primary.me-2(type="submit") CHINH SUA
 
           a.btn.btn-outline-secondary(
             href=`${prefixAdmin}/products-category`

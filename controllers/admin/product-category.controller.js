@@ -3,7 +3,6 @@ const createTree = require("../../helpers/createTree.js");
 const systemConfig = require("../../config/systemConfig")
 
 //[GET] /admin/products-category
-
 module.exports.index = async (req, res) => {
     let find = {
         deleted: false
@@ -48,4 +47,29 @@ module.exports.createPost = async (req,res) =>{
     await data.save()
 
     res.redirect(`${systemConfig.prefixAdmin}/products-category`)
+}
+
+//[GET] /admin/products-category/edit/:id
+module.exports.edit =  async (req,res) =>{
+    try {
+        let find = {
+        deleted : false,
+        _id : req.params.id
+    }
+    const data = await productCategory.findOne(find)
+    console.log(data)
+    const records = await productCategory.find({
+        deleted:false
+    })
+    const newData = createTree(records)
+
+    res.render("admin/pages/product-category/edit.pug",{
+        pagetitle:"Trang chinh sua san pham",
+        data:data,
+        newData:newData
+    })
+    } catch (error) {
+        req.flash("error","Sai duong dan")
+        res.redirect(req.get("Referrer") || "/admin/products-category")
+    }
 }
