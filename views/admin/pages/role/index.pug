@@ -1,0 +1,26 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+block main 
+  +error-flash(4000)
+  .card.mb-3 
+    .card-header DANH MUC NHOM QUYEN
+      .row
+        .col-4 
+          a(
+            href=`${prefixAdmin}/roles/create`
+            class="btn btn-success"
+          ) + THÊM MỚI NHOM QUYEN
+    .card-body 
+      table(
+        class ="table table-bordered table-hover align-middle"
+        form-multi
+      )
+          thead.table-primary
+            tr
+              //- th 
+              //-   input(type="checkbox" check-box-all)
+              th STT
+              th Nhom quyen
+              th Mo ta ngan 
+              th Hanh dong
+            
