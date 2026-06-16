@@ -23,4 +23,33 @@ block main
               th Nhom quyen
               th Mo ta ngan 
               th Hanh dong
-            
+          tbody
+          if data.length > 0
+            each item, index in data
+              tr
+                td.text-center #{index + 1}
+
+                td #{item.title}
+
+                td !{item.description}
+
+                td.text-center
+                  a.btn.btn-sm.btn-info.me-1(
+                    href=`${prefixAdmin}/roles/detail/${item._id}`
+                    title="Xem chi tiết"
+                  ) XEM
+
+                  a.btn.btn-sm.btn-warning.me-1(
+                    href=`${prefixAdmin}/roles/edit/${item._id}`
+                    title="Chỉnh sửa"
+                  ) SUA
+
+                  button.btn.btn-sm.btn-danger(
+                    button-delete=`${prefixAdmin}/roles/delete/${item._id}`
+                    title="Xóa"
+                  ) XOA
+
+          else
+            tr
+              td.text-center(colspan="4")
+                | Chưa có nhóm quyền nào
