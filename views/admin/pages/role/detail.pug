@@ -1,0 +1,62 @@
+extends ../../layouts/default.pug
+block main
+  
+  .card
+    .card-header
+      h4.mb-0 CHI TIẾT NHÓM QUYỀN
+
+    .card-body
+      .row.mb-3
+        .col-md-3.fw-bold ID
+        .col-md-9 #{data._id}
+
+      .row.mb-3
+        .col-md-3.fw-bold Tên nhóm quyền
+        .col-md-9 #{data.title}
+
+      .row.mb-3
+        .col-md-3.fw-bold Mô tả
+        .col-md-9 !{data.description}
+
+      .row.mb-3
+        .col-md-3.fw-bold Trạng thái xóa
+        .col-md-9
+          if data.deleted
+            span.badge.bg-danger Đã xóa
+          else
+            span.badge.bg-success Hoạt động
+
+      .row.mb-3
+        .col-md-3.fw-bold Quyền hạn
+        .col-md-9
+          if data.permissions.length > 0
+            ul.list-group
+              each item in data.permissions
+                li.list-group-item #{item}
+          else
+            span.text-muted Chưa có quyền nào
+
+      .row.mb-3
+        .col-md-3.fw-bold Ngày tạo
+        .col-md-9 #{data.createdAt}
+
+      .row.mb-3
+        .col-md-3.fw-bold Cập nhật lần cuối
+        .col-md-9 #{data.updatedAt}
+
+      .row.mb-3
+        .col-md-3.fw-bold Ngày xóa
+        .col-md-9
+          if data.deletedAt
+            #{data.deletedAt}
+          else
+            span.text-muted Chưa xóa
+
+    .card-footer
+      a.btn.btn-warning.me-2(
+        href=`${prefixAdmin}/roles/edit/${data._id}`
+      ) Chỉnh sửa
+
+      a.btn.btn-secondary(
+        href=`${prefixAdmin}/roles`
+      ) Quay lại

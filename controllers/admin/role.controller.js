@@ -74,3 +74,26 @@ module.exports.delete = async (req,res) =>{
         req.flash("success","Da xoa thanh cong quyen !")
         res.redirect(req.get("Referrer") )
 }
+
+//[GET] admin/roles/detail/:id
+module.exports.detail = async (req,res) =>{
+    try {
+        const id = req.params.id
+        const data = await role.findOne({
+            _id: id,
+            deleted: false
+        })
+        if(!data){
+            req.flash("error","Không tìm thấy nhóm quyền")
+            return res.redirect(req.get("Referrer") || "/admin/roles")
+        }
+        res.render("admin/pages/role/detail",{
+            pagetitle: data.title,
+            data:data
+        })
+
+    } catch (error) {
+        req.flash("error","Sai đường dẫn!")
+        res.redirect(req.get("Referrer") || "/admin/roles")
+    }
+}
