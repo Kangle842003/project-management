@@ -63,3 +63,14 @@ module.exports.editPatch = async (req,res) =>{
         res.redirect( "/admin/roles")
     }
 }
+
+//[DELETE] admin/roles/delete/:id
+module.exports.delete = async (req,res) =>{
+    const id = req.params.id
+        await role.updateOne({_id:id},{
+            deleted:true,
+            deletedAt : new Date()
+        })
+        req.flash("success","Da xoa thanh cong quyen !")
+        res.redirect(req.get("Referrer") )
+}

@@ -46,11 +46,20 @@ block main
                   ) SUA
 
                   button.btn.btn-sm.btn-danger(
-                    button-delete=`${prefixAdmin}/roles/delete/${item._id}`
-                    title="Xóa"
+                    button-delete-item-role
+                    value = item.id
                   ) XOA
 
           else
             tr
               td.text-center(colspan="4")
                 | Chưa có nhóm quyền nào
+
+  //form-delete-item
+  form(
+    action="" 
+    method="POST"
+    id="form-delete-item-role"
+    path=`${prefixAdmin}/roles/delete`)
+  
+  script(src="/admin/js/role.js") 
