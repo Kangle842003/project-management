@@ -57,20 +57,21 @@ if(buttonPage.length > 0){
     if(formMulti){
         const checkBoxAll = formMulti.querySelector("[check-box-all]")
         const checkBoxItem = formMulti.querySelectorAll("[check-box-item]")
-        
-        checkBoxAll.addEventListener("click",()=>{
-            const checkedAll = checkBoxAll.checked
-                if(checkedAll){
-                    checkBoxItem.forEach(input=>{
-                        input.checked = true
+        if(checkBoxAll){
+            checkBoxAll.addEventListener("click",()=>{
+                const checkedAll = checkBoxAll.checked
+                    if(checkedAll){
+                        checkBoxItem.forEach(input=>{
+                            input.checked = true
+                        })
+                    }
+                    else{
+                        checkBoxItem.forEach(input=>{
+                            input.checked = false
+                        })
+                    }
                     })
-                }
-                else{
-                    checkBoxItem.forEach(input=>{
-                        input.checked = false
-                    })
-                }
-                })
+        }
         if(checkBoxItem.length > 0){
             checkBoxItem.forEach(input=>{
                 input.addEventListener("click",()=>{
@@ -146,8 +147,7 @@ if(buttonPage.length > 0){
         const buttonClose = flash.querySelector("[close-alert]")
         if(buttonClose){
             buttonClose.addEventListener("click", () => {
-                const alert = buttonClose.closest("[req-flash]")
-                alert.classList.add("alert-hidden")
+                flash.classList.add("alert-hidden")
             })
         }
         setTimeout(() => {

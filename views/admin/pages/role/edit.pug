@@ -2,14 +2,15 @@ extends ../dashboard/index.pug
 include ../../mixins/alert.pug
 block main
   +error-flash(4000)
+  +success-flash(4000)
   .container.mt-4
     .card.shadow-sm.border-0
       .card-header.bg-primary.text-white
-        h4.mb-0 Them nhom quyen
+        h4.mb-0 Chinh sua nhom quyen
 
       .card-body
         form(
-          action=`${prefixAdmin}/roles/create`
+          action=`${prefixAdmin}/roles/edit/${data.id}?_method=PATCH`
           method="POST"
         )
           .mb-3
@@ -20,6 +21,7 @@ block main
               type="text"
               placeholder="Nhập tiêu đề danh mục..."
               required
+              value = data.title
             )
           .mb-3
             label.form-label(for="desc") MÔ TẢ
@@ -29,8 +31,8 @@ block main
               rows="4"
               placeholder="Nhập mô tả danh mục ..."
               class ="timymce"
-            )
-          button.btn.btn-primary.me-2(type="submit") THÊM MỚI
+            ) #{data.description}
+          button.btn.btn-primary.me-2(type="submit") CHINH SUA
           
           a.btn.btn-outline-secondary(
             href=`${prefixAdmin}/roles`

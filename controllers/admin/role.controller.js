@@ -26,3 +26,40 @@ module.exports.createPost = async(req,res) =>{
     
     res.redirect(`${systemConfig.prefixAdmin}/roles`)
 }
+
+//[GET] admin/roles/edit/:id
+module.exports.edit = async (req,res) =>{
+    try {
+        const id = req.params.id
+    let find = {
+        deleted :false,
+        _id:id
+    }
+    const data = await role.findOne(find)
+    
+    res.render("admin/pages/role/edit.pug",{
+        pagetitle:"Chinh sua quyen",
+        data:data
+    })
+    } catch (error) {
+       req.flash("error","Sai duong dan")
+       res.redirect(req.get("Referrer") || "/admin/roles") 
+    }
+}
+
+//[PATCH] admin/roles/edit/:id
+module.exports.editPatch = async (req,res) =>{
+    try {
+        const id = req.params.id
+        await role.updateOne(
+                { _id: id },
+                req.body
+            )
+        req.flash("success","Cap nhat thanh cong")
+        res.redirect("/admin/roles")
+            
+    } catch (error) {
+        req.flash("error","Sai duong dan")
+        res.redirect( "/admin/roles")
+    }
+}
