@@ -91,3 +91,26 @@ module.exports.editPatch = async (req,res) =>{
         res.redirect(req.get("Referrer") || "/admin/products")
     }
 }
+
+//[GET]  /admin/products-category/detail/:id
+module.exports.detail = async (req,res) =>{
+    const id = req.params.id
+    let find = {
+        deleted:false,
+        _id:id
+    }
+    let dataParent = ""
+    const data = await productCategory.findOne(find)
+    if(data.parent_id){
+        dataParent = await productCategory.findOne({
+            deleted:false,
+            _id : data.parent_id
+        })
+    }
+    
+    res.render("admin/pages/product-category/detail.pug",{
+        pagetitle: data.title,
+        data:data,
+        dataParent:dataParent
+    })
+}
