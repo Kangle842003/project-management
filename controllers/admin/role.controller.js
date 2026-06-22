@@ -97,3 +97,37 @@ module.exports.detail = async (req,res) =>{
         res.redirect(req.get("Referrer") || "/admin/roles")
     }
 }
+
+//[GET] admin/roles/permissions
+module.exports.permission = async (req,res) =>{
+    const data = await role.find({
+        deleted:false
+    })
+    res.render("admin/pages/role/permission",{
+        pagetitle:"Phan quyen",
+        data:data
+    })
+}
+
+//[PATCH] admin/roles/permissions
+module.exports.permissionPatch = async (req,res) =>{
+    try {
+    const permissions = JSON.parse(req.body.permissions);
+
+    for (const item of permissions) {
+      await role.updateOne(
+        { _id: item.id },
+        {
+          permissions: item.permissions
+        }
+      );
+    }
+
+    req.flash("success", "Cập nhật phân quyền thành công");
+    res.redirect(req.get("Referrer") )
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "Cập nhật phân quyền thất bại");
+    res.redirect(req.get("Referrer") )
+  }
+}
