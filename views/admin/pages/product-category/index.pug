@@ -29,3 +29,10 @@ block main
 
           tbody
             +table-tree(data)
+  form(
+    path =`${prefixAdmin}/products-categoy/delete`
+    action="", 
+    method="POST"
+    delete-item-product-category) 
+  
+  script(src="/admin/js/product-category.js") 

@@ -50,8 +50,8 @@ mixin table-tree(items, level = 1)
         ) Xem
         button(
           class = "btn btn-sm btn-danger"
-          button-delete-item
-          data-id = item.id
+          button-delete-item-product-category
+          data-id = item._id
         ) Xóa
     if item.children && item.children.length > 0
       +table-tree(item.children, level + 1)
