@@ -1,0 +1,11 @@
+extends ../../layouts/default.pug
+
+block main 
+  .card.mb-3 
+    .card-header DANH SACH TAI KHOAN
+      .row
+        .col-4 
+          a(
+            href=`${prefixAdmin}/accounts/create`
+            class="btn btn-success"
+          ) + THÊM MỚI TAI KHOAN

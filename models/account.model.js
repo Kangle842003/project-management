@@ -18,10 +18,6 @@ const accountSchema = new mongoose.Schema({
         default: false
     },
     deletedAt: Date,
-    permissions :{
-        type:Array,
-        default :[]
-    }
 }, {
     timestamps: true
 })

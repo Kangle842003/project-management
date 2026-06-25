@@ -4,6 +4,7 @@ const dashboardRoute = require("./dashboard.route")
 const productRoute = require("./product.route")
 const productCategory = require("./product-categoy.route")
 const role = require("./role.route")
+const account = require("./account.route")
 
 module.exports = (app) =>{
 
@@ -16,4 +17,6 @@ module.exports = (app) =>{
     app.use(`${PATH_ADMIN}/products-category`,productCategory)
 
     app.use(`${PATH_ADMIN}/roles`,role)
+
+    app.use(`${PATH_ADMIN}/accounts`,account)
 }
