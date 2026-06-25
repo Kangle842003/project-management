@@ -1,11 +1,84 @@
 extends ../../layouts/default.pug
+include ../../mixins/alert.pug
 
-block main 
-  .card.mb-3 
-    .card-header DANH SACH TAI KHOAN
-      .row
-        .col-4 
+block main
+  +success-flash(4000)
+  +error-flash(4000)
+
+  .card.mb-3
+    .card-header
+      .row.align-items-center
+        .col-8
+          h4.mb-0 DANH SÁCH TÀI KHOẢN
+
+        .col-4.text-end
           a(
             href=`${prefixAdmin}/accounts/create`
             class="btn btn-success"
-          ) + THÊM MỚI TAI KHOAN
+          ) + THÊM MỚI TÀI KHOẢN
+
+    .card-body
+      if(data.length === 0)
+        h5.text-danger Chưa có tài khoản nào, vui lòng tạo tài khoản!
+
+      else
+        table.table.table-bordered.table-hover
+          thead
+            tr
+              th STT
+              th Ảnh
+              th Tên tài khoản
+              th Email
+              th Số điện thoại
+              th Nhóm quyền
+              th Trạng thái
+              th Ngày tạo
+              th Hành động
+
+          tbody
+            each item,index in data
+              tr
+                td #{index + 1}
+
+                td
+                  if(item.avatar)
+                    img(
+                      src=item.avatar
+                      width="80"
+                      class="img-thumbnail"
+                    )
+                  else
+                    span.text-muted Chưa có ảnh
+
+                td #{item.fullName}
+
+                td #{item.email}
+
+                td 0#{item.phone || "-"}
+
+                td #{item.roleTitle}
+
+                td
+                  if(item.status == "active")
+                    span.badge.bg-success Hoạt động
+                  else
+                    span.badge.bg-danger Dừng hoạt động
+
+                td
+                  = new Date(item.createdAt).toLocaleDateString('vi-VN')
+
+                td
+                  a(
+                    href=`${prefixAdmin}/accounts/detail/${item._id}`
+                    class="btn btn-sm btn-info me-1"
+                  ) Xem
+
+                  a(
+                    href=`${prefixAdmin}/accounts/edit/${item._id}`
+                    class="btn btn-sm btn-warning me-1"
+                  ) Sửa
+
+                  a(
+                    href=`${prefixAdmin}/accounts/delete/${item._id}`
+                    class="btn btn-sm btn-danger"
+                  ) Xóa
