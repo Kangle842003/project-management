@@ -8,6 +8,17 @@ module.exports.index = async(req,res) =>{
     const data = await account.find({
         deleted:false
     })
+    const roles = await role.find({
+        deleted:false
+    })
+
+    for(const item of data){
+        const roleInfo = roles.find(roleItem =>
+            roleItem.id === item.role_id
+        )
+
+        item.roleTitle = roleInfo ? roleInfo.title : ""
+    }
     res.render("admin/pages/account/index.pug",{
         pagetitle:"Quan ly tai khoan",
         data:data
