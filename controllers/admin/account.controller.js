@@ -49,3 +49,54 @@ module.exports.createPost = async (req,res) =>{
         req.flash("sucess","Tao tai khoan moi thanh cong")
         res.redirect(`${systemConfig.prefixAdmin}/accounts`)
 }
+
+//[GET] admin/accounts/edit/:id
+module.exports.edit = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = await account.findOne({
+            _id: id,
+            deleted: false
+        });
+        const roles = await role.find({
+            deleted: false
+        });
+        res.render("admin/pages/account/edit", {
+            pagetitle: "Chỉnh sửa tài khoản",
+            data:data,
+            roles:roles
+        });
+    } catch (error) {
+        req.flash("error", "Sai đường dẫn!");
+        return res.redirect(req.get("Referer") || "/admin/accounts");
+    }
+};
+
+//[PATCH] admin/accounts/edit/:id
+module.exports.editPatch = async (req,res) =>{
+   try {
+    if(req.body.phone){
+    req.body.phone= parseInt(req.body.phone)
+   }
+   
+    // Không đổi mật khẩu
+    if(!req.body.passWord){
+        delete req.body.passWord;
+    }
+    // Có đổi mật khẩu
+    else{
+        req.body.passWord = md5(req.body.passWord);
+    }
+
+    await account.updateOne(
+        { _id: req.params.id },
+        req.body
+    );
+
+    req.flash("success", "Cập nhật thành công!");
+    res.redirect(req.get("Referrer"))
+   } catch (error) {
+     req.flash("error", "Cập nhật loi");
+    res.redirect(req.get("Referrer"))
+   }
+}
