@@ -2,6 +2,7 @@ const role = require("../../models/role.model")
 const account = require("../../models/account.model")
 const md5 = require("md5")
 const systemConfig = require("../../config/systemConfig")
+const moment = require("moment");
 
 //[GET] admin/accounts
 module.exports.index = async(req,res) =>{
@@ -99,4 +100,27 @@ module.exports.editPatch = async (req,res) =>{
      req.flash("error", "Cập nhật loi");
     res.redirect(req.get("Referrer"))
    }
+}
+
+//[GET] admin/accounts/detail/:id
+module.exports.detail = async (req,res) =>{
+    const id = req.params.id
+    const data = await account.findOne({
+        deleted:false,
+        _id:id
+    }).select("-_id -token -passWord");
+
+     data.role = await role.findOne({
+        _id: data.role_id,
+        deleted: false
+    });
+    // Xu ly thoi gian
+    data.createdAtFormat = moment(data.createdAt).format("DD/MM/YYYY HH:mm:ss");
+    data.updatedAtFormat = moment(data.updatedAt).format("DD/MM/YYYY HH:mm:ss");
+
+    // console.log(data)
+    res.render("admin/pages/account/detail.pug",{
+        pagetitle:"Chi tiet tai khoan",
+        data:data
+    })
 }
