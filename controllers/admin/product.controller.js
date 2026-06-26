@@ -5,7 +5,6 @@ const createTree = require("../../helpers/createTree.js");
 const filterStatusHelper = require("../../helpers/filterStatus")
 const searchHelper = require("../../helpers/search")
 const paginationHelper = require("../../helpers/pagination")
-const sytemconfig = require("../../config/systemConfig")
 const systemConfig = require("../../config/systemConfig")
 
 // [GET] admin/products
