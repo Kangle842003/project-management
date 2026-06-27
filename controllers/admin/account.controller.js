@@ -97,7 +97,7 @@ module.exports.editPatch = async (req,res) =>{
     req.flash("success", "Cập nhật thành công!");
     res.redirect(req.get("Referrer"))
    } catch (error) {
-     req.flash("error", "Cập nhật loi");
+    req.flash("error", "Cập nhật loi");
     res.redirect(req.get("Referrer"))
    }
 }

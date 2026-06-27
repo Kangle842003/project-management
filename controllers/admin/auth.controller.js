@@ -4,9 +4,15 @@ const systemConfig = require("../../config/systemConfig")
 
 // [GET] admin/auth/login
 module.exports.login = async (req,res) =>{
-    res.render("admin/pages/auth/login.pug",{
+    if(req.cookies.token){
+        res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
+        return
+    }
+    else{
+        res.render("admin/pages/auth/login.pug",{
         pagetitle:"Trang dang nhap"
-    })
+        })
+    }
 }
 
 // [POST] /admin/auth/login
