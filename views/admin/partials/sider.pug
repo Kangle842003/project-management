@@ -1,15 +1,27 @@
-.sider 
-  .inner-menu 
+.sider
+  .inner-menu
     ul
-      li  
-        a(href = `${prefixAdmin}/dashboard`) TRANG TỔNG QUAN
-      li 
-        a(href =`${prefixAdmin}/products`) TRANG SẢN PHẨM
-      li  
-        a(href = `${prefixAdmin}/products-category`) TRANG DANH MỤC SẢN PHẨM
-      li  
-        a(href = `${prefixAdmin}/roles`) NHOM QUYEN
-      li  
-        a(href = `${prefixAdmin}/roles/permissions`) PHAN QUYEN
-      li  
-        a(href = `${prefixAdmin}/accounts`) TAI KHOAN
+
+      if(roleAccount.permissions.includes("dashboard_view"))
+        li
+          a(href=`${prefixAdmin}/dashboard`) TRANG TỔNG QUAN
+
+      if(roleAccount.permissions.includes("product_view"))
+        li
+          a(href=`${prefixAdmin}/products`) TRANG SẢN PHẨM
+
+      if(roleAccount.permissions.includes("product-category_view"))
+        li
+          a(href=`${prefixAdmin}/products-category`) TRANG DANH MỤC SẢN PHẨM
+
+      if(roleAccount.permissions.includes("account_view"))
+        li
+          a(href=`${prefixAdmin}/accounts`) TÀI KHOẢN
+
+      if(roleAccount.permissions.includes("role_view"))
+        li
+          a(href=`${prefixAdmin}/roles`) NHÓM QUYỀN
+
+      if(roleAccount.permissions.includes("roleAdmin_view"))
+        li
+          a(href=`${prefixAdmin}/roles/permissions`) PHÂN QUYỀN

@@ -1,0 +1,32 @@
+mixin error-404()
+  .container.d-flex.justify-content-center.align-items-center(
+    style="height:100vh;"
+  )
+    .card.shadow-lg.border-0.text-center(style="max-width:600px;")
+      .card-body.p-5
+
+        h1.display-1.text-danger 403
+
+        h3.mt-3 Bạn không có quyền truy cập
+
+        p.text-muted.mt-3
+          | Tài khoản của bạn hiện chưa được cấp quyền sử dụng hệ thống.
+          br
+          | Vui lòng liên hệ quản trị viên để được cấp quyền.
+
+        if(infoAccount)
+          hr
+          h5.mb-1= infoAccount.fullName
+          if(roleAccount)
+            span.badge.bg-secondary= roleAccount.title
+
+        .mt-4
+          a.btn.btn-primary.me-2(
+            href=`${prefixAdmin}/dashboard`
+          )
+            | Quay về Dashboard
+
+          a.btn.btn-outline-danger(
+            href=`${prefixAdmin}/auth/logout`
+          )
+            | Đăng xuất

@@ -1,94 +1,95 @@
 extends ../../layouts/default.pug
 
-block main
-  .card
-    .card-header
-      h4.mb-0 Chi tiết danh mục
+block main 
+  if(roleAccount.permissions.includes("product-category_view"))
+    .card
+      .card-header
+        h4.mb-0 Chi tiết danh mục
 
-    .card-body
-      .row.mb-3
-        .col-md-3
-          strong ID:
-        .col-md-9
-          = data._id
+      .card-body
+        .row.mb-3
+          .col-md-3
+            strong ID:
+          .col-md-9
+            = data._id
 
-      .row.mb-3
-        .col-md-3
-          strong Tên danh mục:
-        .col-md-9
-          = data.title
+        .row.mb-3
+          .col-md-3
+            strong Tên danh mục:
+          .col-md-9
+            = data.title
 
-      .row.mb-3
-        .col-md-3
-          strong Slug:
-        .col-md-9
-          = data.slug
+        .row.mb-3
+          .col-md-3
+            strong Slug:
+          .col-md-9
+            = data.slug
 
-      .row.mb-3
-        .col-md-3
-          strong Danh mục cha:
-        .col-md-9
-          if data.parent_id
-            = dataParent.title
-          else
-            span.text-muted Không có
+        .row.mb-3
+          .col-md-3
+            strong Danh mục cha:
+          .col-md-9
+            if data.parent_id
+              = dataParent.title
+            else
+              span.text-muted Không có
 
-      .row.mb-3
-        .col-md-3
-          strong Ảnh đại diện:
-        .col-md-9
-          if data.thumbnail
-            img(
-              src=data.thumbnail
-              alt=data.title
-              width="250"
-              class="img-thumbnail"
-            )
-          else
-            span.text-muted Không có ảnh
+        .row.mb-3
+          .col-md-3
+            strong Ảnh đại diện:
+          .col-md-9
+            if data.thumbnail
+              img(
+                src=data.thumbnail
+                alt=data.title
+                width="250"
+                class="img-thumbnail"
+              )
+            else
+              span.text-muted Không có ảnh
 
-      .row.mb-3
-        .col-md-3
-          strong Trạng thái:
-        .col-md-9
-          if data.status == "active"
-            span.badge.bg-success Hoạt động
-          else
-            span.badge.bg-danger Không hoạt động
+        .row.mb-3
+          .col-md-3
+            strong Trạng thái:
+          .col-md-9
+            if data.status == "active"
+              span.badge.bg-success Hoạt động
+            else
+              span.badge.bg-danger Không hoạt động
 
-      .row.mb-3
-        .col-md-3
-          strong Vị trí:
-        .col-md-9
-          = data.position
+        .row.mb-3
+          .col-md-3
+            strong Vị trí:
+          .col-md-9
+            = data.position
 
-      .row.mb-3
-        .col-md-3
-          strong Mô tả:
-        .col-md-9
-          .border.rounded.p-3
-            != data.description
+        .row.mb-3
+          .col-md-3
+            strong Mô tả:
+          .col-md-9
+            .border.rounded.p-3
+              != data.description
 
-      .row.mb-3
-        .col-md-3
-          strong Ngày tạo:
-        .col-md-9
-          = data.createdAt
+        .row.mb-3
+          .col-md-3
+            strong Ngày tạo:
+          .col-md-9
+            = data.createdAt
 
-      .row.mb-3
-        .col-md-3
-          strong Cập nhật lần cuối:
-        .col-md-9
-          = data.updatedAt
+        .row.mb-3
+          .col-md-3
+            strong Cập nhật lần cuối:
+          .col-md-9
+            = data.updatedAt
 
-      .row
-        .col-12
-          a(
-            href=`${prefixAdmin}/products-category`
-            class="btn btn-secondary me-2"
-          ) Quay lại
+        .row
+          .col-12
+            a(
+              href=`${prefixAdmin}/products-category`
+              class="btn btn-secondary me-2"
+            ) Quay lại
 
-          a(
-            href=`${prefixAdmin}/products-category/edit/${data._id}`
-            class="btn btn-warning"
-          ) Chỉnh sửa
+            a(
+              href=`${prefixAdmin}/products-category/edit/${data._id}`
+              class="btn btn-warning"
+            ) Chỉnh sửa

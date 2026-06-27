@@ -4,35 +4,37 @@ include ../../mixins/alert.pug
 block main 
   +error-flash(4000)
   .card.mb-3 
-    .card-header DANH MUC SAN PHAM
-      .row
-        .col-4 
-          a(
-            href=`${prefixAdmin}/products-category/create`
-            class="btn btn-success"
-          ) + THÊM MỚI DANH MUC
-    .card-body 
-      table(
-        class ="table table-bordered table-hover align-middle"
-        form-multi
-      )
-          thead.table-primary
-            tr
-              th 
-                input(type="checkbox" check-box-all)
-              th STT
-              th Hình ảnh
-              th Tiêu đề
-              th Vị trí
-              th Trạng thái
-              th Hành động
+    if(roleAccount.permissions.includes("product-category_view"))
+      .card-header DANH MUC SAN PHAM
+        .row
+          .col-4 
+            if(roleAccount.permissions.includes("product-category_create"))
+              a(
+                href=`${prefixAdmin}/products-category/create`
+                class="btn btn-success"
+              ) + THÊM MỚI DANH MUC
+      .card-body 
+        table(
+          class ="table table-bordered table-hover align-middle"
+          form-multi
+        )
+            thead.table-primary
+              tr
+                th 
+                  input(type="checkbox" check-box-all)
+                th STT
+                th Hình ảnh
+                th Tiêu đề
+                th Vị trí
+                th Trạng thái
+                th Hành động
 
-          tbody
-            +table-tree(data)
-  form(
-    path =`${prefixAdmin}/products-categoy/delete`
-    action="", 
-    method="POST"
-    delete-item-product-category) 
-  
-  script(src="/admin/js/product-category.js") 
+            tbody
+              +table-tree(data)
+    form(
+      path =`${prefixAdmin}/products-categoy/delete`
+      action="", 
+      method="POST"
+      delete-item-product-category) 
+    
+    script(src="/admin/js/product-category.js") 

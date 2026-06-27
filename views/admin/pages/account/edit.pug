@@ -2,109 +2,110 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 
 block main
-  +success-flash(4000)
-  +error-flash(4000)
+  if(roleAccount.permissions.includes("account_edit"))
+    +success-flash(4000)
+    +error-flash(4000)
 
-  h1.mb-4 Chỉnh sửa tài khoản
+    h1.mb-4 Chỉnh sửa tài khoản
 
-  form(
-    action=`${prefixAdmin}/accounts/edit/${data._id}?_method=PATCH`
-    method="POST"
-    enctype="multipart/form-data"
-  )
+    form(
+      action=`${prefixAdmin}/accounts/edit/${data._id}?_method=PATCH`
+      method="POST"
+      enctype="multipart/form-data"
+    )
 
-    .card
-      .card-header Thông tin tài khoản
+      .card
+        .card-header Thông tin tài khoản
 
-      .card-body
+        .card-body
 
-        .mb-3
-          label.form-label Họ và tên
-          input.form-control(
-            type="text"
-            name="fullName"
-            value=data.fullName
-            required
-          )
-
-        .mb-3
-          label.form-label Email
-          input.form-control(
-            type="email"
-            name="email"
-            value=data.email
-            required
-          )
-
-        .mb-3
-          label.form-label Mật khẩu mới
-          input.form-control(
-            type="password"
-            name="passWord"
-            placeholder="Để trống nếu không muốn đổi"
-          )
-          small.text-muted Nếu không nhập sẽ giữ nguyên mật khẩu cũ.
-
-        .mb-3
-          label.form-label Số điện thoại
-          input.form-control(
-            type="number"
-            name="phone"
-            value=data.phone
-          )
-
-        .mb-3(upload-preview)
-            label.form-label(for="img") ĐƯỜNG DẪN ẢNH
+          .mb-3
+            label.form-label Họ và tên
             input.form-control(
-              id="img"
-              name="avatar"
-              type="file"
-              accept ="image/*"
-              placeholder="Nhập đường dẫn ảnh ...."
-              upload-preview-input
+              type="text"
+              name="fullName"
+              value=data.fullName
+              required
             )
-            img(
-              src=data.avatar
-              upload-preview-img
-              class = "preview-img"
+
+          .mb-3
+            label.form-label Email
+            input.form-control(
+              type="email"
+              name="email"
+              value=data.email
+              required
             )
-            button(
-              type="button"
-              class = "btn btn-secondary close-preview"
-              close-preview-image="false"
-            ) Xoa Anh
 
-        .mb-3
-          label.form-label Quyền
+          .mb-3
+            label.form-label Mật khẩu mới
+            input.form-control(
+              type="password"
+              name="passWord"
+              placeholder="Để trống nếu không muốn đổi"
+            )
+            small.text-muted Nếu không nhập sẽ giữ nguyên mật khẩu cũ.
 
-          select.form-select(name="role_id")
-            each item in roles
+          .mb-3
+            label.form-label Số điện thoại
+            input.form-control(
+              type="number"
+              name="phone"
+              value=data.phone
+            )
+
+          .mb-3(upload-preview)
+              label.form-label(for="img") ĐƯỜNG DẪN ẢNH
+              input.form-control(
+                id="img"
+                name="avatar"
+                type="file"
+                accept ="image/*"
+                placeholder="Nhập đường dẫn ảnh ...."
+                upload-preview-input
+              )
+              img(
+                src=data.avatar
+                upload-preview-img
+                class = "preview-img"
+              )
+              button(
+                type="button"
+                class = "btn btn-secondary close-preview"
+                close-preview-image="false"
+              ) Xoa Anh
+
+          .mb-3
+            label.form-label Quyền
+
+            select.form-select(name="role_id")
+              each item in roles
+                option(
+                  value=item._id
+                  selected=item._id == data.role_id
+                )= item.title
+
+          .mb-3
+            label.form-label Trạng thái
+
+            select.form-select(name="status")
               option(
-                value=item._id
-                selected=item._id == data.role_id
-              )= item.title
+                value="active"
+                selected=data.status=="active"
+              ) Hoạt động
 
-        .mb-3
-          label.form-label Trạng thái
+              option(
+                value="inactive"
+                selected=data.status=="inactive"
+              ) Dừng hoạt động
 
-          select.form-select(name="status")
-            option(
-              value="active"
-              selected=data.status=="active"
-            ) Hoạt động
+        .card-footer
+          button.btn.btn-primary(type="submit")
+            i.fa-solid.fa-floppy-disk
+            |  Cập nhật
 
-            option(
-              value="inactive"
-              selected=data.status=="inactive"
-            ) Dừng hoạt động
-
-      .card-footer
-        button.btn.btn-primary(type="submit")
-          i.fa-solid.fa-floppy-disk
-          |  Cập nhật
-
-        a.btn.btn-secondary.ms-2(
-          href=`${prefixAdmin}/accounts`
-        )
-          i.fa-solid.fa-arrow-left
-          |  Quay lại
+          a.btn.btn-secondary.ms-2(
+            href=`${prefixAdmin}/accounts`
+          )
+            i.fa-solid.fa-arrow-left
+            |  Quay lại

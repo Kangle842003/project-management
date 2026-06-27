@@ -2,9 +2,13 @@ header
   .row
     .col-10
       h1 🚀 Tech Admin Dashboard
-    .col-2
+
+    .col-2.text-end
       a.btn.btn-warning(
         href=`${prefixAdmin}/auth/logout`
       ) Đăng xuất
-    
-  
+
+  .row
+    .col-12
+      h5 #{infoAccount.fullName}
+      p #{roleAccount.title}

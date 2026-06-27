@@ -1,85 +1,85 @@
 extends ../../layouts/default.pug
 
 block main
+  if(roleAccount.permissions.includes("account_view"))
+    h1.mb-4 Chi tiết tài khoản
 
-  h1.mb-4 Chi tiết tài khoản
+    .card.shadow-sm
+      .card-body
 
-  .card.shadow-sm
-    .card-body
+        .row
 
-      .row
+          // Avatar
+          .col-md-3.text-center
+            if data.avatar
+              img(
+                src=data.avatar
+                alt=data.fullName
+                class="img-thumbnail rounded-circle mb-3"
+                style="width:200px;height:200px;object-fit:cover;"
+              )
+            else
+              img(
+                src="/admin/images/default-avatar.png"
+                class="img-thumbnail rounded-circle"
+                style="width:200px;height:200px;"
+              )
 
-        // Avatar
-        .col-md-3.text-center
-          if data.avatar
-            img(
-              src=data.avatar
-              alt=data.fullName
-              class="img-thumbnail rounded-circle mb-3"
-              style="width:200px;height:200px;object-fit:cover;"
+          // Thông tin
+          .col-md-9
+
+            table.table.table-bordered.align-middle
+
+              tbody
+                tr
+                  th Họ và tên
+                  td #{data.fullName}
+
+                tr
+                  th Email
+                  td #{data.email}
+
+                tr
+                  th Số điện thoại
+                  td #{data.phone}
+
+                tr
+                  th Vai trò
+                  td #{data.role.title}
+
+                tr
+                  th Trạng thái
+                  td
+                    if data.status == "active"
+                      span.badge.bg-success Hoạt động
+                    else
+                      span.badge.bg-danger Dừng hoạt động
+                tr
+                  th Ngày tạo
+                  td #{data.createdAtFormat}
+
+                tr
+                  th Cập nhật lần cuối
+                  td #{data.updatedAtFormat}
+
+                tr
+                  th Đã xóa
+                  td
+                    if data.deleted
+                      span.badge.bg-danger Có
+                    else
+                      span.badge.bg-success Không
+
+        .mt-4
+
+          a.btn.btn-secondary(
+            href=`${prefixAdmin}/accounts`
+          )
+            i.fa-solid.fa-arrow-left.me-2
+            | Quay lại
+          if(roleAccount.permissions.includes("account_edit"))
+            a.btn.btn-warning.ms-2(
+              href=`${prefixAdmin}/accounts/edit/${data._id}`
             )
-          else
-            img(
-              src="/admin/images/default-avatar.png"
-              class="img-thumbnail rounded-circle"
-              style="width:200px;height:200px;"
-            )
-
-        // Thông tin
-        .col-md-9
-
-          table.table.table-bordered.align-middle
-
-            tbody
-              tr
-                th Họ và tên
-                td #{data.fullName}
-
-              tr
-                th Email
-                td #{data.email}
-
-              tr
-                th Số điện thoại
-                td #{data.phone}
-
-              tr
-                th Vai trò
-                td #{data.role.title}
-
-              tr
-                th Trạng thái
-                td
-                  if data.status == "active"
-                    span.badge.bg-success Hoạt động
-                  else
-                    span.badge.bg-danger Dừng hoạt động
-              tr
-                th Ngày tạo
-                td #{data.createdAtFormat}
-
-              tr
-                th Cập nhật lần cuối
-                td #{data.updatedAtFormat}
-
-              tr
-                th Đã xóa
-                td
-                  if data.deleted
-                    span.badge.bg-danger Có
-                  else
-                    span.badge.bg-success Không
-
-      .mt-4
-
-        a.btn.btn-secondary(
-          href=`${prefixAdmin}/accounts`
-        )
-          i.fa-solid.fa-arrow-left.me-2
-          | Quay lại
-
-        a.btn.btn-warning.ms-2(
-          href=`${prefixAdmin}/accounts/edit/${data._id}`
-        )
-          i.fa-solid.fa-pen.me-2
-          | Chỉnh sửa
+              i.fa-solid.fa-pen.me-2
+              | Chỉnh sửa
