@@ -24,14 +24,14 @@ module.exports.requireAuth = async (req, res, next) => {
             token: token,
             deleted: false,
             status: "active"
-        }).select("-passWord -token -_id");
+        }).select("-passWord -token");
 
         const  roleAccount = await role.findOne({
             deleted: false,
             _id : infoAccount.role_id
         }).select("title permissions")
 
-        res.locals.infoAccount = infoAccount
+        res.locals.infoAccount = infoAccount 
         res.locals.roleAccount = roleAccount
         next();
 

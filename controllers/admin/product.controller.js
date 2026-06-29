@@ -9,6 +9,7 @@ const systemConfig = require("../../config/systemConfig")
 
 // [GET] admin/products
 module.exports.index = async (req,res) =>{
+    
     let find = {
         deleted : false
     }
@@ -144,6 +145,7 @@ module.exports.createPost= async(req,res)=>{
     req.body.price = parseInt(req.body.price)
     req.body.discountPercentage = parseInt(req.body.discountPercentage)
     req.body.stock = parseInt(req.body.stock)
+
     if(req.body.position){
         req.body.position = parseInt(req.body.position)
     }
@@ -152,10 +154,14 @@ module.exports.createPost= async(req,res)=>{
         // console.log(count)
         req.body.position = count + 1
     }
-    console.log(req.body)
-    const product = new Product(req.body)
+        console.log(req.body)
+        req.body.createdBy = {
+        account_id: res.locals.infoAccount._id
+    };
+
+const product = new Product(req.body);
     await product.save()
-    req.flash("sucess","Tao san pham moi thanh cong")
+    req.flash("success","Tao san pham moi thanh cong")
     res.redirect(`${systemConfig.prefixAdmin}/products`)
 
 }
