@@ -1,65 +1,68 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 block main 
-  +error-flash(4000)
-  +success-flash(4000)
-  .card.mb-3 
-    .card-header DANH MUC NHOM QUYEN
-      .row
-        .col-4 
-          a(
-            href=`${prefixAdmin}/roles/create`
-            class="btn btn-success"
-          ) + THÊM MỚI NHOM QUYEN
-    .card-body 
-      table(
-        class ="table table-bordered table-hover align-middle"
-        form-multi
-      )
-          thead.table-primary
-            tr
-              //- th 
-              //-   input(type="checkbox" check-box-all)
-              th STT
-              th Nhom quyen
-              th Mo ta ngan 
-              th Hanh dong
-          tbody
-          if data.length > 0
-            each item, index in data
+  if(roleAccount.permissions.includes("role_view"))
+    +error-flash(4000)
+    +success-flash(4000)
+    .card.mb-3 
+      .card-header DANH MUC NHOM QUYEN
+        .row
+          .col-4 
+            if(roleAccount.permissions.includes("role_create"))
+              a(
+                href=`${prefixAdmin}/roles/create`
+                class="btn btn-success"
+              ) + THÊM MỚI NHOM QUYEN
+      .card-body 
+        table(
+          class ="table table-bordered table-hover align-middle"
+          form-multi
+        )
+            thead.table-primary
               tr
-                td.text-center #{index + 1}
+                //- th 
+                //-   input(type="checkbox" check-box-all)
+                th STT
+                th Nhom quyen
+                th Mo ta ngan 
+                th Hanh dong
+            tbody
+            if data.length > 0
+              each item, index in data
+                tr
+                  td.text-center #{index + 1}
 
-                td #{item.title}
+                  td #{item.title}
 
-                td !{item.description}
+                  td !{item.description}
 
-                td.text-center
-                  a.btn.btn-sm.btn-info.me-1(
-                    href=`${prefixAdmin}/roles/detail/${item.id}`
-                    title="Xem chi tiết"
-                  ) XEM
+                  td.text-center
+                    if(roleAccount.permissions.includes("role_view"))
+                      a.btn.btn-sm.btn-info.me-1(
+                        href=`${prefixAdmin}/roles/detail/${item.id}`
+                        title="Xem chi tiết"
+                      ) XEM
+                    if(roleAccount.permissions.includes("role_edit"))
+                      a.btn.btn-sm.btn-warning.me-1(
+                        href=`${prefixAdmin}/roles/edit/${item.id}`
+                        title="Chỉnh sửa"
+                      ) SUA
+                    if(roleAccount.permissions.includes("role_delete"))
+                      button.btn.btn-sm.btn-danger(
+                        button-delete-item-role
+                        value = item.id
+                      ) XOA
 
-                  a.btn.btn-sm.btn-warning.me-1(
-                    href=`${prefixAdmin}/roles/edit/${item.id}`
-                    title="Chỉnh sửa"
-                  ) SUA
-
-                  button.btn.btn-sm.btn-danger(
-                    button-delete-item-role
-                    value = item.id
-                  ) XOA
-
-          else
-            tr
-              td.text-center(colspan="4")
-                | Chưa có nhóm quyền nào
-
-  //form-delete-item
-  form(
-    action="" 
-    method="POST"
-    id="form-delete-item-role"
-    path=`${prefixAdmin}/roles/delete`)
+            else
+              tr
+                td.text-center(colspan="4")
+                  | Chưa có nhóm quyền nào
+    if(roleAccount.permissions.includes("role_delete"))
+      //form-delete-item
+      form(
+        action="" 
+        method="POST"
+        id="form-delete-item-role"
+        path=`${prefixAdmin}/roles/delete`)
   
   script(src="/admin/js/role.js") 

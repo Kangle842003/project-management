@@ -3,140 +3,141 @@ include ../../mixins/alert.pug
 include ../../mixins/select-tree.pug
 
 block main
-  +error-flash(5000)
-  .container.mt-4
-    .card.shadow-sm.border-0
-      .card-header.bg-primary.text-white
-        h4.mb-0 Them san pham moi
+  if(roleAccount.permissions.includes("product_create"))
+    +error-flash(5000)
+    .container.mt-4
+      .card.shadow-sm.border-0
+        .card-header.bg-primary.text-white
+          h4.mb-0 Them san pham moi
 
-      .card-body
-        form(
-          action=`${prefixAdmin}/products/create`
-          method="POST"
-          enctype="multipart/form-data"
-        )
-
-          .mb-3
-            label.form-label(for="title") TIÊU ĐỀ
-            input.form-control(
-              id="title"
-              name="title"
-              type="text"
-              placeholder="Nhập tiêu đề sản phẩm..."
-              required
-            )
-          .mb-3
-            label.form-label(for="product_category_id") DANH MỤC CHA
-            select(
-              name="product_category_id"
-              id="product_category_id"
-              class="form-control"
-            )
-              option(value="") -- Chọn danh mục --
-              +select-tree(data)
-
-          .mb-3
-            label.form-label(for="desc") MÔ TẢ
-            textarea.form-control(
-              id="desc"
-              name="description"
-              rows="4"
-              placeholder="Nhập mô tả sản phẩm ..."
-              class ="timymce"
-            )
-
-          .mb-3
-            label.form-label(for="price") GIÁ
-            input.form-control(
-              id="price"
-              name="price"
-              type="number"
-              value = 0
-            )
-
-          .mb-3
-            label.form-label(for="discountPercentage") % GIẢM GIÁ
-            input.form-control(
-              id="discountPercentage"
-              name="discountPercentage"
-              type="number"
-              value = 0
-            )
-
-          .mb-3
-            label.form-label(for="stock") SỐ LƯỢNG
-            input.form-control(
-              id="stock"
-              name="stock"
-              type="number"
-              value = 1
-              min = 1
-            )
-          
-          .mb-3(upload-preview)
-            label.form-label(for="img") ĐƯỜNG DẪN ẢNH
-            input.form-control(
-              id="img"
-              name="thumbnail"
-              type="file"
-              accept ="image/*"
-              placeholder="Nhập đường dẫn ảnh ...."
-              upload-preview-input
-            )
-            img(
-              src="" 
-              upload-preview-img
-              class = "preview-img"
-            )
-            //- button(
-            //-   class = "close-preview"
-            //-   close-preview-image="false"
-            //- ) X
-            button(
-              type="button"
-              class = "btn btn-secondary close-preview"
-              close-preview-image="false"
-            ) Xoa Anh
-          .mb-3
-            label.form-label(for="position") VỊ TRÍ
-            input.form-control(
-              id="position"
-              name="position"
-              type="number"
-              placeholder="Vị trí sẽ tự động tăng nếu không điền ! "
-            )
-    
-          .mb-4
-            label.form-label.d-block TRẠNG THÁI
-
-            .form-check
-              input.form-check-input(
-                type="radio"
-                name="status"
-                id="active"
-                value="active"
-                checked
-              )
-              label.form-check-label(for="active")
-                | Hoạt động
-
-            .form-check
-              input.form-check-input(
-                type="radio"
-                name="status"
-                id="inactive"
-                value="inactive"
-              )
-              label.form-check-label(for="inactive")
-                | Dừng hoạt động
-
-          button.btn.btn-primary.me-2(type="submit") THÊM MỚI
-
-          a.btn.btn-outline-secondary(
-            href=`${prefixAdmin}/products`
+        .card-body
+          form(
+            action=`${prefixAdmin}/products/create`
+            method="POST"
+            enctype="multipart/form-data"
           )
-            i.fa-solid.fa-arrow-left.me-2
-            | QUAY LẠI
+
+            .mb-3
+              label.form-label(for="title") TIÊU ĐỀ
+              input.form-control(
+                id="title"
+                name="title"
+                type="text"
+                placeholder="Nhập tiêu đề sản phẩm..."
+                required
+              )
+            .mb-3
+              label.form-label(for="product_category_id") DANH MỤC CHA
+              select(
+                name="product_category_id"
+                id="product_category_id"
+                class="form-control"
+              )
+                option(value="") -- Chọn danh mục --
+                +select-tree(data)
+
+            .mb-3
+              label.form-label(for="desc") MÔ TẢ
+              textarea.form-control(
+                id="desc"
+                name="description"
+                rows="4"
+                placeholder="Nhập mô tả sản phẩm ..."
+                class ="timymce"
+              )
+
+            .mb-3
+              label.form-label(for="price") GIÁ
+              input.form-control(
+                id="price"
+                name="price"
+                type="number"
+                value = 0
+              )
+
+            .mb-3
+              label.form-label(for="discountPercentage") % GIẢM GIÁ
+              input.form-control(
+                id="discountPercentage"
+                name="discountPercentage"
+                type="number"
+                value = 0
+              )
+
+            .mb-3
+              label.form-label(for="stock") SỐ LƯỢNG
+              input.form-control(
+                id="stock"
+                name="stock"
+                type="number"
+                value = 1
+                min = 1
+              )
+            
+            .mb-3(upload-preview)
+              label.form-label(for="img") ĐƯỜNG DẪN ẢNH
+              input.form-control(
+                id="img"
+                name="thumbnail"
+                type="file"
+                accept ="image/*"
+                placeholder="Nhập đường dẫn ảnh ...."
+                upload-preview-input
+              )
+              img(
+                src="" 
+                upload-preview-img
+                class = "preview-img"
+              )
+              //- button(
+              //-   class = "close-preview"
+              //-   close-preview-image="false"
+              //- ) X
+              button(
+                type="button"
+                class = "btn btn-secondary close-preview"
+                close-preview-image="false"
+              ) Xoa Anh
+            .mb-3
+              label.form-label(for="position") VỊ TRÍ
+              input.form-control(
+                id="position"
+                name="position"
+                type="number"
+                placeholder="Vị trí sẽ tự động tăng nếu không điền ! "
+              )
+      
+            .mb-4
+              label.form-label.d-block TRẠNG THÁI
+
+              .form-check
+                input.form-check-input(
+                  type="radio"
+                  name="status"
+                  id="active"
+                  value="active"
+                  checked
+                )
+                label.form-check-label(for="active")
+                  | Hoạt động
+
+              .form-check
+                input.form-check-input(
+                  type="radio"
+                  name="status"
+                  id="inactive"
+                  value="inactive"
+                )
+                label.form-check-label(for="inactive")
+                  | Dừng hoạt động
+
+            button.btn.btn-primary.me-2(type="submit") THÊM MỚI
+
+            a.btn.btn-outline-secondary(
+              href=`${prefixAdmin}/products`
+            )
+              i.fa-solid.fa-arrow-left.me-2
+              | QUAY LẠI
 
   script(src="/tinymce/tinymce.min.js") 
   script(src="/admin/js/tinymce-config.js") 

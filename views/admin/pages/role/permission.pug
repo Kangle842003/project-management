@@ -1,191 +1,192 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 block main 
-  +error-flash(4000)
-  +success-flash(4000)
-  h1(class="mb-4") Phân quyền
-  if(data.length > 0)
+  if(roleAccount.permissions.includes("roleAdmin_view"))
+    +error-flash(4000)
+    +success-flash(4000)
+    h1(class="mb-4") Phân quyền
+    if(data.length > 0)
 
-    div(data-permissions = data)
+      div(data-permissions = data)
+      if(roleAccount.permissions.includes("roleAdmin_edit")) 
+        div(class="text-right")
+          button(
+            type="submit"
+            class = "btn btn-primary mb-3"
+            button-submit
+          ) Cập nhật
 
-    div(class="text-right")
-      button(
-        type="submit"
-        class = "btn btn-primary mb-3"
-        button-submit
-      ) Cập nhật
-
-    table(
-      class = "table table-hover table-sm"
-      table-permissions
-    )
-      thead 
-        tr 
-          th Tính năng 
-          each item in data
-            th(class ="text-center") #{item.title}
-      tbody 
-
-        // Danh muc san pham
-        tr 
-          td(colspan="4") 
-            b Danh mục sản phẩm
-        tr(data-name="id" class="d-none")
-          td 
-          each item in data
-            td(class="text-center") 
-              input(type="text" value = item.id)
-        tr(data-name = "product-category_view")
-          td Xem 
-          each item in data
-            td(class="text-center") 
-              input(type="checkbox")
-        tr(data-name = "product-category_edit")
-          td Chỉnh sửa
-          each item in data
-            td(class="text-center") 
-              input(type="checkbox")
-        tr(data-name = "product-category_delete")
-          td Xóa
-          each item in data
-            td(class="text-center") 
-              input(type="checkbox")
-        tr(data-name = "product-category_create")
-          td Tạo mới
-          each item in data
-            td(class="text-center") 
-              input(type="checkbox")
-
-        // dashboard
-        tr
-          td(colspan=data.length + 1)
-            b Tổng quan
-
-        tr(data-name="dashboard_view")
-          td Xem
-          each item in data
-            td.text-center
-              input(type="checkbox")
-
-        // account
-        tr
-          td(colspan=data.length + 1)
-            b Tài khoản
-
-        tr(data-name="account_view")
-          td Xem
-          each item in data
-            td.text-center
-              input(type="checkbox")
-
-        tr(data-name="account_create")
-          td Tạo mới
-          each item in data
-            td.text-center
-              input(type="checkbox")
-
-        tr(data-name="account_edit")
-          td Chỉnh sửa
-          each item in data
-            td.text-center
-              input(type="checkbox")
-
-        tr(data-name="account_delete")
-          td Xóa
-          each item in data
-            td.text-center
-              input(type="checkbox")
-
-
-
-        // San pham
-        tr 
-          td(colspan="4") 
-            b Sản phẩm
-        tr(data-name = "product_view")
-          td Xem 
-          each item in data
-            td(class="text-center") 
-              input(type="checkbox")
-        tr(data-name = "product_edit")
-          td Chỉnh sửa
-          each item in data
-            td(class="text-center") 
-              input(type="checkbox")
-        tr(data-name = "product_delete")
-          td Xóa
-          each item in data
-            td(class="text-center") 
-              input(type="checkbox")
-        tr(data-name = "product_create")
-          td Tạo mới
-          each item in data
-            td(class="text-center") 
-              input(type="checkbox")
-        
-
-        // Nhom Quyen
-        tr 
-          td(colspan="4") 
-            b Nhóm quyền
-        tr(data-name = "role_view")
-          td Xem 
-          each item in data
-            td(class="text-center") 
-              input(type="checkbox")
-        tr(data-name = "role_edit")
-          td Chỉnh sửa
-          each item in data
-            td(class="text-center") 
-              input(type="checkbox")
-        tr(data-name = "role_delete")
-          td Xóa
-          each item in data
-            td(class="text-center") 
-              input(type="checkbox")
-        tr(data-name = "role_create")
-          td Tạo mới
-          each item in data
-            td(class="text-center") 
-              input(type="checkbox")
-            
-        // phan quyen
-        tr
-          td(colspan=data.length + 1)
-            b Phân quyền
-
-        tr(data-name="roleAdmin_view")
-          td Xem
-          each item in data
-            td.text-center
-              input(type="checkbox")
-
-        tr(data-name="roleAdmin_edit")
-          td Cập nhật
-          each item in data
-            td.text-center
-              input(type="checkbox")
-
-              
-  else 
-    h2 Chưa có nhóm quyền nào,xin vui lòng tạo quyền!
-    a(
-      class="btn btn-primary "
-      href = `${prefixAdmin}/roles`
-    ) Tạo mới
-
-  form(
-    id ="form-change-permission"
-    method="POST"
-    action=`${prefixAdmin}/roles/permissions?_method=PATCH`
-    class="d-none"
-  )
-    div(class ="form-group")
-      input(
-        type="text"
-        class="form-control"
-        name="permissions"
+      table(
+        class = "table table-hover table-sm"
+        table-permissions
       )
+        thead 
+          tr 
+            th Tính năng 
+            each item in data
+              th(class ="text-center") #{item.title}
+        tbody 
+
+          // Danh muc san pham
+          tr 
+            td(colspan="4") 
+              b Danh mục sản phẩm
+          tr(data-name="id" class="d-none")
+            td 
+            each item in data
+              td(class="text-center") 
+                input(type="text" value = item.id)
+          tr(data-name = "product-category_view")
+            td Xem 
+            each item in data
+              td(class="text-center") 
+                input(type="checkbox")
+          tr(data-name = "product-category_edit")
+            td Chỉnh sửa
+            each item in data
+              td(class="text-center") 
+                input(type="checkbox")
+          tr(data-name = "product-category_delete")
+            td Xóa
+            each item in data
+              td(class="text-center") 
+                input(type="checkbox")
+          tr(data-name = "product-category_create")
+            td Tạo mới
+            each item in data
+              td(class="text-center") 
+                input(type="checkbox")
+
+          // dashboard
+          tr
+            td(colspan=data.length + 1)
+              b Tổng quan
+
+          tr(data-name="dashboard_view")
+            td Xem
+            each item in data
+              td.text-center
+                input(type="checkbox")
+
+          // account
+          tr
+            td(colspan=data.length + 1)
+              b Tài khoản
+
+          tr(data-name="account_view")
+            td Xem
+            each item in data
+              td.text-center
+                input(type="checkbox")
+
+          tr(data-name="account_create")
+            td Tạo mới
+            each item in data
+              td.text-center
+                input(type="checkbox")
+
+          tr(data-name="account_edit")
+            td Chỉnh sửa
+            each item in data
+              td.text-center
+                input(type="checkbox")
+
+          tr(data-name="account_delete")
+            td Xóa
+            each item in data
+              td.text-center
+                input(type="checkbox")
+
+
+
+          // San pham
+          tr 
+            td(colspan="4") 
+              b Sản phẩm
+          tr(data-name = "product_view") 
+            td Xem 
+            each item in data
+              td(class="text-center") 
+                input(type="checkbox")
+          tr(data-name = "product_edit")
+            td Chỉnh sửa
+            each item in data
+              td(class="text-center") 
+                input(type="checkbox")
+          tr(data-name = "product_delete")
+            td Xóa
+            each item in data
+              td(class="text-center") 
+                input(type="checkbox")
+          tr(data-name = "product_create")
+            td Tạo mới
+            each item in data
+              td(class="text-center") 
+                input(type="checkbox")
+          
+
+          // Nhom Quyen
+          tr 
+            td(colspan="4") 
+              b Nhóm quyền
+          tr(data-name = "role_view")
+            td Xem 
+            each item in data
+              td(class="text-center") 
+                input(type="checkbox")
+          tr(data-name = "role_edit")
+            td Chỉnh sửa
+            each item in data
+              td(class="text-center") 
+                input(type="checkbox")
+          tr(data-name = "role_delete")
+            td Xóa
+            each item in data
+              td(class="text-center") 
+                input(type="checkbox")
+          tr(data-name = "role_create")
+            td Tạo mới
+            each item in data
+              td(class="text-center") 
+                input(type="checkbox")
+              
+          // phan quyen
+          tr
+            td(colspan=data.length + 1)
+              b Phân quyền
+
+          tr(data-name="roleAdmin_view")
+            td Xem
+            each item in data
+              td.text-center
+                input(type="checkbox")
+
+          tr(data-name="roleAdmin_edit")
+            td Cập nhật
+            each item in data
+              td.text-center
+                input(type="checkbox")
+
+                
+    else 
+      h2 Chưa có nhóm quyền nào,xin vui lòng tạo quyền!
+      a(
+        class="btn btn-primary "
+        href = `${prefixAdmin}/roles`
+      ) Tạo mới
+    if(roleAccount.permissions.includes("roleAdmin_edit"))
+      form(
+        id ="form-change-permission"
+        method="POST"
+        action=`${prefixAdmin}/roles/permissions?_method=PATCH`
+        class="d-none"
+      )
+        div(class ="form-group")
+          input(
+            type="text"
+            class="form-control"
+            name="permissions"
+          )
 
 
   script(src="/admin/js/role.js") 

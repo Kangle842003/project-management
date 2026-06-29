@@ -6,115 +6,142 @@ include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
 include ../../mixins/sort.pug
 block main
-  +success-flash("3000")
-  +error-flash("4000")
-  h1 TRANG DANH SÁCH SẢN PHẨM
-  .card.mb-3 
-    .card-header BỘ LỌC VÀ TÌM KIẾM 
-    .card-body 
-      .row 
-        .col-8 
-          +filter-status(filterStatus)      
-        .col-4
-          +search(keyword)
-      .row 
-        +sort(sortKey,sortValue)
+  if(roleAccount.permissions.includes("product_view"))
+    +success-flash("3000")
+    +error-flash("4000")
+    h1 TRANG DANH SÁCH SẢN PHẨM
+    .card.mb-3 
+      .card-header BỘ LỌC VÀ TÌM KIẾM 
+      .card-body 
+        .row 
+          .col-8 
+            if(roleAccount.permissions.includes("product_view"))
+              +filter-status(filterStatus)      
+          .col-4
+            +search(keyword)
+        .row 
+          if(roleAccount.permissions.includes("product_view"))
+            +sort(sortKey,sortValue)
 
 
-  .card.mb-3 
-    .card-header DANH SÁCH SẢN PHẨM
-      .row 
-        .col-8
-          +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
-        .col-4 
-          a(
-            href=`${prefixAdmin}/products/create`
-            class="btn btn-success"
-          ) + THÊM MỚI SẢN PHẨM
-    .card-body 
-      table(
-        class ="table table-bordered table-hover align-middle"
-        form-multi
-      )
-          thead.table-primary
-            tr
-              th 
-                input(type="checkbox" check-box-all)
-              th STT
-              th Hình ảnh
-              th Tiêu đề
-              th Vị trí
-              th Giá
-              th Trạng thái
-              th Hành động
-
-          tbody
-            each item,index in data
-              
+    .card.mb-3 
+      .card-header DANH SÁCH SẢN PHẨM
+        .row 
+          if(roleAccount.permissions.includes("product_edit"))
+            .col-8
+              +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+            .col-4 
+              if(roleAccount.permissions.includes("product_create"))
+                a(
+                  href=`${prefixAdmin}/products/create`
+                  class="btn btn-success"
+                ) + THÊM MỚI SẢN PHẨM
+      .card-body 
+        table(
+          class ="table table-bordered table-hover align-middle" 
+          form-multi
+        )
+            thead.table-primary
               tr
-                td 
-                  input(type ="checkbox" check-box-item value = item.id)
-                td #{index +1}
-                td
-                  img(
-                    src=item.thumbnail
-                    alt = item.title
-                    width="80"
-                    height="80"
-                  )
-                td #{item.title}
-                td 
-                  input(
-                    name = "position"
-                    type ="number"
-                    value = item.position
-                    min = 1
-                    class="form-control "
-                    required
-                  )
-                td.text-danger.fw-bold #{item.price} $
-                td
-                  if(item.status == "active")
-                    button(
-                      class="badge bg-success"
-                      data-id = item._id
-                      button-change-status = item.status
-                      ) Hoạt động
+                th 
+                  input(type="checkbox" check-box-all)
+                th STT
+                th Hình ảnh
+                th Tiêu đề
+                th Vị trí
+                th Giá
+                th Trạng thái
+                th Hành động
+
+            tbody
+              each item,index in data
+                
+                tr
+                  td 
+                    input(type ="checkbox" check-box-item value = item.id)
+                  td #{index +1}
+                  td
+                    img(
+                      src=item.thumbnail
+                      alt = item.title
+                      width="80"
+                      height="80"
+                    )
+                  td #{item.title}
+                  if(roleAccount.permissions.includes("product_edit"))
+                    td 
+                      input(
+                        name = "position"
+                        type ="number"
+                        value = item.position
+                        min = 1
+                        class="form-control "
+                        required
+                      )
                   else 
-                    button(
-                      class="badge bg-danger"
-                      data-id = item._id
-                      button-change-status = item.status
-                      ) Dừng hoạt động
-                td
-                  a(
-                    href =`${prefixAdmin}/products/edit/${item.id}`
-                    class = "btn btn-sm btn-info me-1"
-                  ) Sửa
-                  a(
-                    href =`${prefixAdmin}/products/detail/${item.id}`
-                    class = "btn btn-sm btn-secondary me-1"
-                  ) Xem
-                  button(
-                    class = "btn btn-sm btn-danger"
-                    button-delete-item
-                    data-id = item.id
-                  ) Xóa
-                  
-  +pagination(objectPagination, pages)
+                    td
+                      input(
+                        name = "position"
+                        type ="number"
+                        value = item.position)
+                  td.text-danger.fw-bold #{item.price} $
+                  td
+                    if(roleAccount.permissions.includes("product_edit"))
+                      if(item.status == "active")
+                        button(
+                          class="badge bg-success"
+                          data-id = item._id
+                          button-change-status = item.status
+                          ) Hoạt động
+                      else 
+                        button(
+                          class="badge bg-danger"
+                          data-id = item._id
+                          button-change-status = item.status
+                          ) Dừng hoạt động
+                    else
+                      if(item.status == "active")
+                        button(
+                          class="badge bg-success"
+                          data-id = item._id
+                          ) Hoạt động
+                      else 
+                        button(
+                          class="badge bg-danger"
+                          data-id = item._id
+                          ) Dừng hoạt động
+                  td
+                    if(roleAccount.permissions.includes("product_edit"))
+                      a(
+                        href =`${prefixAdmin}/products/edit/${item.id}`
+                        class = "btn btn-sm btn-info me-1"
+                      ) Sửa
+                    if(roleAccount.permissions.includes("product_view"))
+                      a(
+                        href =`${prefixAdmin}/products/detail/${item.id}`
+                        class = "btn btn-sm btn-secondary me-1"
+                      ) Xem
+                    if(roleAccount.permissions.includes("product_delete"))
+                      button(
+                        class = "btn btn-sm btn-danger"
+                        button-delete-item
+                        data-id = item.id
+                      ) Xóa
+                    
+    +pagination(objectPagination, pages)
 
-  //form-change-status
-  form(
-    action=""
-    method="POST"
-    id="form-change-status"
-    data-path = `${prefixAdmin}/products/change-status`) 
+    //form-change-status
+    form(
+      action=""
+      method="POST"
+      id="form-change-status"
+      data-path = `${prefixAdmin}/products/change-status`) 
 
-  //form-delete-item
-  form(
-    action="" 
-    method="POST"
-    id="form-delete-item-product"
-    path=`${prefixAdmin}/products/delete`)
+    //form-delete-item
+    form(
+      action="" 
+      method="POST"
+      id="form-delete-item-product"
+      path=`${prefixAdmin}/products/delete`)
 
   script(src="/admin/js/product.js") 
