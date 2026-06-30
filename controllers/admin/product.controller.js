@@ -166,6 +166,9 @@ module.exports.delete = async (req, res) => {
     await Product.updateOne({
         _id: id
     }, {
+        deletedBy: {
+            account_id: res.locals.infoAccount._id,
+        },
         deleted: true,
         deletedAt: new Date()
     })
