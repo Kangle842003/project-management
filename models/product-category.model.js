@@ -11,7 +11,29 @@ const productCategorySchema = new mongoose.Schema({
         type: String,
         default: ""
     },
-
+    createdBy: {
+        account_id: {
+            type: String,
+            default: ""
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now
+        }
+    },
+    updatedBy: [
+        {   
+             _id: false,
+            account_id: {
+                type: String,
+                default: ""
+            },
+            updatedAt: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ],
     thumbnail: String,
     status: String,
     position: Number,
