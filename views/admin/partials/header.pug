@@ -1,14 +1,17 @@
 header
-  .row
-    .col-10
+  .row.align-items-center
+    .col-6
       h1 🚀 Tech Admin Dashboard
 
-    .col-2.text-end
-      a.btn.btn-warning(
-        href=`${prefixAdmin}/auth/logout`
-      ) Đăng xuất
+    .col-6
+      .d-flex.justify-content-end.align-items-center.gap-3
+        a.text-decoration-none.text-dark.text-end(
+          class ="btn btn-outline-info"
+          href=`${prefixAdmin}/my-account`
+        )
+          h6.mb-0 #{infoAccount.fullName}
+          small.text-muted #{roleAccount.title}
 
-  .row
-    .col-12
-      h5 #{infoAccount.fullName}
-      p #{roleAccount.title}
+        a.btn.btn-warning(
+          href=`${prefixAdmin}/auth/logout`
+        ) Đăng xuất

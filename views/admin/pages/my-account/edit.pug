@@ -1,0 +1,91 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug 
+
+block main
+  +success-flash(4000)
+  +error-flash(4000)
+  h1.mb-4 Chỉnh sửa thông tin cá nhân
+
+  form(
+    action=`${prefixAdmin}/my-account/edit?_method=PATCH`
+    method="POST"
+    enctype="multipart/form-data"
+  )
+    .card.shadow-sm
+      .card-body
+        .row
+          .col-md-4.text-center(upload-preview)
+            img#preview.rounded-circle.mb-3.d-block.mx-auto(
+              src=infoAccount.avatar
+              alt=infoAccount.fullName
+              upload-preview-img
+              width="180"
+              height="180"
+              style="object-fit: cover;"
+            )
+
+            .mb-3
+              label.form-label(for="img") Ảnh đại diện
+              input.form-control(
+                id="img"
+                name="avatar"
+                type="file"
+                accept ="image/*"
+                upload-preview-input
+              )
+              button(
+              type="button"
+              class = "btn btn-secondary close-preview"
+              close-preview-image="false"
+            ) Xoa Anh
+
+          .col-md-8
+
+            .mb-3
+              label.form-label Họ và tên
+              input.form-control(
+                type="text"
+                name="fullName"
+                value=infoAccount.fullName
+                required
+              )
+
+            .mb-3
+              label.form-label Email
+              input.form-control(
+                type="email"
+                name="email"
+                value=infoAccount.email
+                required
+              )
+
+            .mb-3
+              label.form-label Số điện thoại
+              input.form-control(
+                type="text"
+                name="phone"
+                value=infoAccount.phone
+              )
+
+            .mb-3
+              label.form-label Vai trò
+              input.form-control(
+                type="text"
+                value=roleAccount.title
+                readonly
+              )
+
+            .mb-3
+              label.form-label Trạng thái
+              input.form-control(
+                type="text"
+                value=infoAccount.status
+                readonly
+              )
+
+      .card-footer.text-end
+        a.btn.btn-secondary(
+          href=`${prefixAdmin}/my-account`
+        ) Hủy
+
+        button.btn.btn-primary.ms-2(type="submit") Lưu thay đổi

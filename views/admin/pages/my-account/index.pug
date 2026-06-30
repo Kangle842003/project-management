@@ -1,0 +1,54 @@
+extends ../../layouts/default.pug
+
+block main
+  h1.mb-4 Thông tin tài khoản
+
+  .card.shadow-sm
+    .card-body
+      .row
+        .col-md-4.text-center()
+          img.rounded-circle.mb-3(
+            src=infoAccount.avatar,
+            alt=infoAccount.fullName,
+            width="180",
+            height="180",
+            style="object-fit: cover;"
+          )
+
+          h4.mb-1 #{infoAccount.fullName}
+          if(infoAccount.status == "active")
+            span.badge.bg-success Hoat dong
+          else 
+            span.badge.bg-danger Khong hoat dong
+
+        .col-md-8
+          table.table.table-bordered.align-middle
+            tbody
+              tr
+                th(style="width: 220px") Họ và tên
+                td #{infoAccount.fullName}
+
+              tr
+                th Email
+                td #{infoAccount.email}
+
+              tr
+                th Số điện thoại
+                td 0#{infoAccount.phone}
+
+              tr
+                th Vai trò
+                td #{roleAccount.title}
+
+      .mt-4.text-end
+        a.btn.btn-primary(
+          href=`${prefixAdmin}/my-account/edit`
+        )
+          i.bi.bi-pencil-square.me-1
+          | Chỉnh sửa thông tin
+
+        a.btn.btn-warning.ms-2(
+          href=`${prefixAdmin}/my-account/change-password`
+        )
+          i.bi.bi-key.me-1
+          | Đổi mật khẩu

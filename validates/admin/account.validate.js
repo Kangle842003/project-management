@@ -25,6 +25,7 @@ module.exports.create=(req,res,next)=>{
 }
 module.exports.checkExistAccount = async (req,res,next)=>{
     const existEmail = await account.findOne({
+        _id: { $ne: req.params.id },
         email: req.body.email,
         deleted: false
     })
