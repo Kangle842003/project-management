@@ -132,6 +132,31 @@ block main
               )
               label.form-check-label(for="inactive")
                 | Dừng hoạt động
+          
+          .mb-4
+              .form-check
+
+                input.form-check-input(
+                  type="radio"
+                  name="featured"
+                  id="featured-true"
+                  value="true"
+                  checked =(data.featured == true ? true : false)
+                )
+                label.form-check-label(for="featured-true")
+                  | Nổi bật
+
+              .form-check
+
+                input.form-check-input(
+                  type="radio"
+                  name="featured"
+                  id="featured-false"
+                  value="false"
+                  checked =(data.featured == false ? true : false)
+                )
+                label.form-check-label(for="featured-false")
+                  | Bình thường
 
           button.btn.btn-primary.me-2(type="submit") CHINH SUA 
 

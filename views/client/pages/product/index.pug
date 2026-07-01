@@ -14,12 +14,18 @@ block main
               src=item.thumbnail
               alt=item.title
             )
+            if item.discountPercentage
+              span.product-discount #{item.discountPercentage}%
 
             .card-body
               h5.card-title= item.title
+              
+              .product-price-box
+                p.product-price-old
+                  del= item.price + " $"
 
-              p.product-price
-                = item.price + " $"
+                p.product-price-new
+                  = item.priceNew + " $"
 
             .card-footer.bg-white.border-0
               a.btn.btn-primary.w-100(href=`/products/view/${item.id}`)

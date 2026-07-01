@@ -1,4 +1,5 @@
 const Product = require("../../models/product.model")
+const priceProduct = require("../../helpers/priceNewProduct")
 
 // [GET] /products
 module.exports.index = async (req,res)=>{
@@ -7,6 +8,9 @@ module.exports.index = async (req,res)=>{
         status: "active"
     }
     const data = await Product.find(find).sort({ position: "desc" })
+    data.forEach(item => {
+         item.priceNew = priceProduct.priceNewProduct(item)
+    });
     // console.log(data)
     res.render("client/pages/product/index.pug",
         {   
@@ -26,10 +30,8 @@ module.exports.view = async (req, res) => {
         status: "active"
     });
 
-    data.priceNew = Math.floor(
-        data.price * (100 - data.discountPercentage) / 100
-    );
-    console.log(data)
+    data.priceNew = priceProduct.priceNewProduct(data)
+    // console.log(data)
 
     res.render("client/pages/product/detail", {
         pagetitle: data.title,

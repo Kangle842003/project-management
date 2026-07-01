@@ -202,7 +202,7 @@ module.exports.createPost = async (req, res) => {
         // console.log(count)
         req.body.position = count + 1
     }
-    console.log(req.body)
+    // console.log(req.body)
     req.body.createdBy = {
         account_id: res.locals.infoAccount._id
     };
@@ -266,7 +266,7 @@ module.exports.editPatch = async (req, res) => {
         res.redirect(`${systemConfig.prefixAdmin}/products`)
     } catch (error) {
         req.flash("error", "Cập nhật thất bại")
-        res.redirect(req.get("Referrer") || "/admin/products")
+        res.redirect(req.get("Referrer"))
     }
 }
 

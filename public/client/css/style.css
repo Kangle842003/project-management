@@ -16,6 +16,41 @@
   width: 100%;
   object-fit: cover;
 }
+.product-img-wrapper{
+    position: relative;
+    overflow: hidden;
+}
+
+/* badge discount */
+.product-discount{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    background: #ff3b30;
+    color: white;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    padding: 4px 8px;
+    border-radius: 6px;
+
+    z-index: 2;
+}
+
+/* ảnh cho đẹp hơn */
+.product-img-wrapper img{
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: 0.3s;
+}
+
+/* hover zoom nhẹ */
+.product-item:hover img{
+    transform: scale(1.05);
+}
 
 .product-item .card-body {
   display: flex;
@@ -35,13 +70,99 @@
   overflow: hidden;
 }
 
-.product-price {
-  margin-top: auto;
-  font-size: 22px;
-  font-weight: 700;
-  color: #dc3545;
+.product-price-old{
+    color:#9e9e9e;
+    font-size:15px;
+    text-decoration:line-through;
+}
+
+.product-price-new{
+    color:#d70018;
+    font-size:26px;
+    font-weight:700;
+}
+
+.product-price-box{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
 }
 
 .product-item .btn {
   border-radius: 8px;
+}
+
+/* reset */
+.dropdown-menu-custom,
+.sub-menu{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+/* menu cha */
+.dropdown{
+    position: relative;
+}
+
+/* dropdown cap 1 */
+.dropdown-menu-custom{
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    min-width: 220px;
+
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+
+    display: none;
+    z-index: 1000;
+}
+
+/* hiện khi hover Products */
+.dropdown:hover > .dropdown-menu-custom{
+    display: block;
+}
+
+/* item */
+.dropdown-menu-custom li{
+    position: relative;
+}
+
+/* link */
+.dropdown-menu-custom a{
+    display: block;
+    padding: 12px 18px;
+    text-decoration: none;
+    color: #333;
+    transition: .25s;
+    white-space: nowrap;
+}
+
+.dropdown-menu-custom a:hover{
+    background: #0d6efd;
+    color: #fff;
+}
+
+/* submenu */
+.sub-menu{
+    position: absolute;
+    top: 0;
+    right: 100%;   /* hiện sang trái */
+    left: auto;
+
+    min-width: 220px;
+
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+
+    display: none;
+}
+
+/* hover hiện submenu */
+.dropdown-menu-custom li:hover > .sub-menu{
+    display: block;
 }

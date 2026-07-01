@@ -1,0 +1,13 @@
+mixin categoryMenu(items, path)
+  each item in items
+    li
+
+      a(href=`${path}/${item.slug}`)
+        span= item.title
+
+        if item.children
+          i.fa-solid.fa-angle-right.ms-auto
+
+      if item.children
+        ul.sub-menu
+          +categoryMenu(item.children, path)
