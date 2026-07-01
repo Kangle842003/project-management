@@ -13,14 +13,25 @@ module.exports.index = async (req,res)=>{
         status:"active"
         
     }).limit(4)
-     dataFeatured.forEach(item => {
+    const dataNew = await  Product.find({
+        deleted:false,
+        status:"active"
+    }).limit(4).sort({ createdAt: -1 })
+
+
+
+    dataFeatured.forEach(item => {
+            item.priceNew = priceProduct.priceNewProduct(item)
+    });
+    dataNew.forEach(item => {
              item.priceNew = priceProduct.priceNewProduct(item)
         });
     
     res.render("client/pages/home/index.pug",
         {
             pagetitle : "Trang home",
-            dataFeatured : dataFeatured
+            dataFeatured : dataFeatured,
+            dataNew:dataNew
         }
     )
 } 

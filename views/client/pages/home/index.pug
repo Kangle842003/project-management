@@ -5,8 +5,15 @@ include ../../mixins/product-grid.pug
 block main
   .container.py-4
     .text-center.mb-4
-      +box-head("San pham noi bat")
+      +box-head("Sản phẩm nổi bật")
 
     .row.g-4
       +productGrid(dataFeatured)
+  
+  .container.py-4
+    .text-center.mb-4
+      +box-head("Sản phẩm mới nhất")
+
+    .row.g-4
+      +productGrid(dataNew)
     
