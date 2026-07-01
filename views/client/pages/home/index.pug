@@ -1,6 +1,12 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
+include ../../mixins/product-grid.pug
 
 block main
-  
-  +box-head("Trang home")
+  .container.py-4
+    .text-center.mb-4
+      +box-head("San pham noi bat")
+
+    .row.g-4
+      +productGrid(dataFeatured)
+    

@@ -1,5 +1,7 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
+include ../../mixins/product-grid.pug
+
 
 block main
   .container.py-4
@@ -7,26 +9,4 @@ block main
       +box-head("Trang sản phẩm")
 
     .row.g-4
-      each item in data
-        .col-md-4.col-lg-3
-          .card.product-item
-            img.card-img-top(
-              src=item.thumbnail
-              alt=item.title
-            )
-            if item.discountPercentage
-              span.product-discount #{item.discountPercentage}%
-
-            .card-body
-              h5.card-title= item.title
-              
-              .product-price-box
-                p.product-price-old
-                  del= item.price + " $"
-
-                p.product-price-new
-                  = item.priceNew + " $"
-
-            .card-footer.bg-white.border-0
-              a.btn.btn-primary.w-100(href=`/products/view/${item.id}`)
-                | Xem chi tiết
+      +productGrid(data)

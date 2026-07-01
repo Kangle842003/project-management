@@ -1,0 +1,26 @@
+mixin productGrid(items)
+  each item in items
+        .col-md-4.col-lg-3
+          .card.product-item
+            img.card-img-top(
+              src=item.thumbnail
+              alt=item.title
+            )
+            if item.discountPercentage
+              span.product-discount #{item.discountPercentage}%
+
+            .card-body 
+              h5.card-title= item.title
+                if(item.featured == true)
+                  span(class ="badge bg-danger mb-2") HOT
+
+                p.product-price-old
+                  del= item.price + " $"
+
+                p.product-price-new
+                  = item.priceNew + " $"
+              
+
+            .card-footer.bg-white.border-0
+              a.btn.btn-primary.w-100(href=`/products/view/${item.id}`)
+                | Xem chi tiết

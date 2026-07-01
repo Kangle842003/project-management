@@ -14,8 +14,8 @@ module.exports.index = async (req,res)=>{
     // console.log(data)
     res.render("client/pages/product/index.pug",
         {   
-            data:data,
-            pagetitle : "Trang San pham"
+            pagetitle : "Trang San pham",
+            data:data
         }
     )   
 }

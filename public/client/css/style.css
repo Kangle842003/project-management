@@ -77,7 +77,7 @@
 }
 
 .product-price-new{
-    color:#d70018;
+    color:rgb(39, 150, 39);
     font-size:26px;
     font-weight:700;
 }
@@ -90,6 +90,14 @@
 
 .product-item .btn {
   border-radius: 8px;
+}
+
+.badge{
+    width: 40px;
+    font-size: 12px;
+    padding: 5px 8px;
+    border-radius: 6px;
+    margin-left: 10px;
 }
 
 /* reset */
